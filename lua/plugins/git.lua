@@ -52,8 +52,20 @@ return {
       })
     end,
     keys = {
-      { "]h", ":Gitsigns next_hunk<CR>", desc = "Next git hunk" },
-      { "[h", ":Gitsigns prev_hunk<CR>", desc = "Previous git hunk" },
+      {
+        "]h",
+        function()
+          require("gitsigns").nav_hunk("next")
+        end,
+        desc = "Next git hunk",
+      },
+      {
+        "[h",
+        function()
+          require("gitsigns").nav_hunk("prev")
+        end,
+        desc = "Previous git hunk",
+      },
       { "<leader>gb", ":Gitsigns toggle_current_line_blame<CR>", desc = "Toggle git blame" },
       { "<leader>gd", ":Gitsigns diffthis<CR>", desc = "Git diff" },
       { "<leader>gp", ":Gitsigns preview_hunk<CR>", desc = "Preview git hunk" },
@@ -90,7 +102,6 @@ return {
           tree_options = { flatten = true },
         },
         key_bindings = {
-          -- You can customize or disable default keybindings here:
           disable_defaults = false,
           view = {
             ["q"] = ":DiffviewClose<CR>",

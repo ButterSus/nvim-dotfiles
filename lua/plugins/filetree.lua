@@ -1,7 +1,7 @@
 return {
   {
     "nvim-tree/nvim-tree.lua",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = { "nvim-tree/nvim-web-devicons", "wintermute-cell/gitignore.nvim" },
     opts = {
       on_attach = function(bufnr)
         local api = require("nvim-tree.api")
@@ -14,6 +14,9 @@ return {
 
         -- Add <A-n> for directory up
         vim.keymap.set("n", "<A-n>", api.tree.change_root_to_parent, { buffer = bufnr, desc = "Up directory" })
+
+        -- Gitignore
+        vim.keymap.set("n", "<leader>gi", "<cmd>Gitignore<CR>", { buffer = bufnr, desc = "Edit .gitignore" })
       end,
       disable_netrw = true,
       hijack_netrw = true,

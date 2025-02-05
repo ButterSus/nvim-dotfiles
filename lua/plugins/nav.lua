@@ -23,6 +23,7 @@ return {
   {
     "stevearc/oil.nvim",
     lazy = false,
+    dependencies = { "nvim-tree/nvim-web-devicons", "wintermute-cell/gitignore.nvim" },
     opts = {
       default_file_explorer = true,
       keymaps = {
@@ -68,6 +69,7 @@ return {
             vim.notify("Changed directory to: " .. dir)
           end
         end,
+        ["<leader>gi"] = "<cmd>Gitignore<CR>",
       },
       use_default_mappings = false,
       view_options = {
@@ -77,7 +79,6 @@ return {
         signcolumn = "yes:2",
       },
     },
-    dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
       { "<a-n>", "<cmd>Oil<CR>", desc = "Open file explorer" },
     },
