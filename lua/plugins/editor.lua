@@ -83,9 +83,9 @@ return {
           ruler = false,
           showcmd = false,
         },
-        twilight = { enabled = true }, -- dims inactive portions of the code
-        gitsigns = { enabled = false },
-        tmux = { enabled = false },
+        twilight = { enabled = false }, -- dims inactive portions of the code
+        gitsigns = { enabled = true },
+        tmux = { enabled = true },
       },
       on_open = function(_)
         vim.opt.wrap = true
