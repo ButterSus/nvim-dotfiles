@@ -4,7 +4,7 @@ return {
     event = "VeryLazy",
     opts = {
       options = {
-        theme = "gruvbox",
+        theme = "auto",
         component_separators = "|",
         section_separators = "",
         -- Only show statusline on the bottom window
@@ -13,7 +13,7 @@ return {
       sections = {
         lualine_a = { "mode" },
         lualine_b = { "branch", "diff", "diagnostics" },
-        lualine_c = { "filename" },
+        lualine_c = { "filename", require("lsp-progress").progress },
         lualine_x = { "encoding", "fileformat", "filetype" },
         lualine_y = { "progress" },
         lualine_z = { "location" },
@@ -32,4 +32,3 @@ return {
     },
   },
 }
-

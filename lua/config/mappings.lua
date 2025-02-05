@@ -18,5 +18,12 @@ vim.keymap.set({ "n", "x", "i" }, "<C-z>", "<cmd>undo<CR>", { desc = "Undo", sil
 vim.keymap.set({ "n", "x", "i" }, "<C-y>", "<cmd>redo<CR>", { desc = "Redo", silent = true })
 
 -- Exit & Restart
-vim.keymap.set("n", "<leader>q", "<cmd>wqa<CR>", { desc = "Quit all", silent = true })
-vim.keymap.set("n", "<leader>Q", "<cmd>qa!<CR>", { desc = "Restart Neovim", silent = true })
+vim.keymap.set("n", "<leader>q", function()
+    -- Kill all terminals first, then quit all
+    require("toggleterm").kill_all_terms()
+    vim.cmd("wqa")
+end, { desc = "Quit all", silent = true })
+vim.keymap.set("n", "<leader>Q", "<cmd>qa!<CR>", { desc = "Force Quit All", silent = true })
+
+-- Lazy
+vim.keymap.set("n", "<leader>L", "<cmd>Lazy<CR>", { desc = "Open Lazy", silent = true })

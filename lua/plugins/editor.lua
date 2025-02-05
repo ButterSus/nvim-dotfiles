@@ -16,12 +16,6 @@ return {
     end,
   },
 
-  -- Better buffer deletion
-  {
-    "famiu/bufdelete.nvim",
-    cmd = { "Bdelete", "Bwipeout" },
-  },
-
   -- Surround text objects (better than vim-surround)
   {
     "echasnovski/mini.surround",
@@ -36,6 +30,8 @@ return {
         highlight = "gsh", -- Highlight surrounding
         replace = "cs", -- Change surrounding
         update_n_lines = "", -- Update `n_lines`
+        suffix_last = "", -- Suffix to search with "prev" method
+        suffix_next = "", -- Suffix to search with "next" method
       },
       -- Add custom surrounds
       custom_surrounds = {
@@ -51,6 +47,9 @@ return {
           end,
         },
       },
+      n_lines = 50,
+      respect_selection_type = false,
+      search_method = "cover",
     },
   },
 
@@ -99,6 +98,7 @@ return {
     },
     keys = {
       { "<leader>z", "<cmd>ZenMode<CR>", desc = "Toggle Zen Mode" },
+      { "<leader>tw", "<cmd>Twilight<CR>", desc = "Toggle Twilight" },
     },
     dependencies = {
       "folke/twilight.nvim",
@@ -109,7 +109,7 @@ return {
           term_bg = "#000000", -- if guibg=NONE, this will be used to calculate text color
           inactive = false, -- when true, other windows will be fully dimmed (unless they contain the same buffer)
         },
-        context = 10, -- amount of lines we will try to show around the current line
+        context = 40, -- amount of lines we will try to show around the current line
         treesitter = true, -- use treesitter when available for the filetype
         expand = { -- for treesitter, we we always try to expand to the top-most ancestor with these types
           "function",
@@ -133,13 +133,24 @@ return {
         function()
           require("todo-comments").jump_next()
         end,
+        desc = "Jump to next todo",
+        mode = { "n", "v" },
       },
       {
         "[t",
         function()
           require("todo-comments").jump_prev()
         end,
+        desc = "Jump to previous todo",
+        mode = { "n", "v" },
       },
     },
+  },
+
+  -- Kitty Config Files
+  {
+    "fladson/vim-kitty",
+    ft = "kitty",
+    tag = "*", -- You can select a tagged version
   },
 }

@@ -37,3 +37,24 @@ vim.opt.clipboard = "unnamedplus"
 -- Disable gf mapping
 vim.keymap.set("n", "gf", "<Nop>", { noremap = true })
 vim.keymap.set("x", "gf", "<Nop>", { noremap = true })
+
+-- Disable sign column (gutter)
+vim.opt.signcolumn = "no"
+
+-- Disable providers you don't need
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_python3_provider = 0
+
+-- Enable mouse interactions
+vim.opt.mouse = "a"
+
+-- Highlight yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+  pattern = "*",
+  callback = function()
+    vim.highlight.on_yank { higroup = "IncSearch", timeout = 180 }
+  end,
+  group = vim.api.nvim_create_augroup("highlight_yank", { clear = true })
+})

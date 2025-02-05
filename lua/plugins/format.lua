@@ -15,13 +15,15 @@ return {
     },
     opts = {
       formatters_by_ft = {
-        lua = { "stylua" },
-        python = { "black" },
-        javascript = { { "prettierd", "prettier" } },
-        typescript = { { "prettierd", "prettier" } },
-        json = { { "prettierd", "prettier" } },
-        yaml = { { "prettierd", "prettier" } },
-        markdown = { { "prettierd", "prettier" } },
+        lua = { "stylua", "trim_whitespace" },
+        python = { "black", "trim_whitespace" },
+        javascript = { "prettierd", "trim_whitespace" },
+        typescript = { "prettierd", "trim_whitespace" },
+        json = { "prettierd", "trim_whitespace" },
+        yaml = { "prettierd", "trim_whitespace" },
+        markdown = { "prettierd", "trim_whitespace" },
+        systemverilog = { "verible_verilog_format", "trim_whitespace" },
+        verilog = { "verible_verilog_format", "trim_whitespace" },
       },
 
       -- Set up format-on-save
@@ -37,6 +39,11 @@ return {
         },
         black = {
           prepend_args = { "--line-length", "120" },
+        },
+        verible_verilog_format = {
+          command = "verible-verilog-format",
+          args = { "--indentation_spaces=2", "-" },
+          stdin = true
         },
       },
     },

@@ -8,6 +8,8 @@ return {
       "hrsh7th/cmp-cmdline", -- Cmdline completions
       "saadparwaiz1/cmp_luasnip", -- Snippet completions
       "hrsh7th/cmp-nvim-lsp",
+      "L3MON4D3/LuaSnip",
+      "zbirenbaum/copilot-cmp",
     },
     config = function()
       local cmp = require("cmp")
@@ -24,7 +26,10 @@ return {
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+          ["<CR>"] = cmp.mapping.confirm({
+            select = true,
+            behavior = cmp.ConfirmBehavior.Replace,
+          }),
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
@@ -45,11 +50,24 @@ return {
           end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "buffer" },
-          { name = "path" },
+          { name = "nvim_lsp", priority = 1000 },
+          { name = "luasnip", priority = 750 },
+          { name = "buffer", priority = 500 },
+          { name = "path", priority = 250 },
         }),
+        sorting = {
+          priority_weight = 2,
+          comparators = {
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.locality,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+          },
+        },
         window = {
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered({
@@ -62,8 +80,8 @@ return {
         formatting = {
           fields = { "kind", "abbr", "menu" },
           format = function(entry, vim_item)
-            if vim_item.kind == 'Text' then
-              vim_item.kind = ''
+            if vim_item.kind == "Text" then
+              vim_item.kind = ""
             end
             vim_item.menu = ({
               nvim_lsp = "[LSP]",
@@ -78,4 +96,3 @@ return {
     end,
   },
 }
-

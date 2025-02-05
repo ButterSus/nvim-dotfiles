@@ -2,6 +2,7 @@ return {
   -- TODO: Test for bugs
   {
     'akinsho/bufferline.nvim',
+    lazy = false,
     version = "*",
     dependencies = {
       'nvim-tree/nvim-web-devicons',
@@ -17,6 +18,18 @@ return {
         indicator = {
           style = 'underline',
         },
+        highlights = {
+          fill = {
+            bg = { attribute = "bg", highlight = "Normal" },
+          },
+          background = {
+            bg = { attribute = "bg", highlight = "Normal" },
+          },
+          buffer_selected = {
+            bold = true,
+            italic = false,
+          },
+        },
         buffer_close_icon = '󰅖',
         modified_icon = '●',
         close_icon = '',
@@ -31,7 +44,7 @@ return {
         end,
         offsets = {
           {
-            filetype = "oil",
+            filetype = "NvimTree",
             text = "File Explorer",
             highlight = "Directory",
             separator = true
@@ -40,7 +53,7 @@ return {
         color_icons = true,
         show_buffer_icons = true,
         show_buffer_close_icons = true,
-        show_close_icon = false,
+        show_close_icon = true,
         show_tab_indicators = true,
         separator_style = "thin",
         enforce_regular_tabs = true,
@@ -50,6 +63,14 @@ return {
           delay = 200,
           reveal = {'close'}
         },
+        custom_filter = function(buf_number, _)
+          -- Hide Oil buffers from tabs
+          local buf_ft = vim.bo[buf_number].filetype
+          if buf_ft == "oil" then
+            return false
+          end
+          return true
+        end,
       }
     },
     keys = {
@@ -66,8 +87,6 @@ return {
     opts = {},
     config = function(_, opts)
       require("scope").setup(opts)
-      -- Each window will retain its own independent buffer history
-      -- require("telescope").load_extension("scope")
     end
   }
 }
