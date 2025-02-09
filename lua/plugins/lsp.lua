@@ -297,7 +297,7 @@ return {
         -- Ensure linting triggers on write/leave
         vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "TextChanged", "InsertLeave" }, {
           callback = function()
-            require("lint").try_lint()
+            require("lint").try_lint(nil, { ignore_errors = true })
           end,
         })
       end
@@ -305,7 +305,7 @@ return {
       -- Global LSP mappings
       vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-      vim.keymap.set("n", "K", require("hover").hover, { desc = "Hover documentation" })
+      vim.keymap.set("n", "gh", require("hover").hover, { desc = "Hover documentation" })
       vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
       vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions" })

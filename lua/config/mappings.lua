@@ -4,10 +4,10 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- Line swapping
-vim.keymap.set("n", "<leader>j", ":m .+1<CR>==", { desc = "Move line down", silent = true })
-vim.keymap.set("n", "<leader>k", ":m .-2<CR>==", { desc = "Move line up", silent = true })
-vim.keymap.set("x", "<leader>j", ":m '>+1<CR>gv=gv", { desc = "Move selection down", silent = true })
-vim.keymap.set("x", "<leader>k", ":m '<-2<CR>gv=gv", { desc = "Move selection up", silent = true })
+vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down", silent = true })
+vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up", silent = true })
+vim.keymap.set("x", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down", silent = true })
+vim.keymap.set("x", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up", silent = true })
 
 -- Indent in Visual Mode
 vim.keymap.set("v", "<Tab>", ">gv", { desc = "Indent selection" })
@@ -19,11 +19,44 @@ vim.keymap.set({ "n", "x", "i" }, "<C-y>", "<cmd>redo<CR>", { desc = "Redo", sil
 
 -- Exit & Restart
 vim.keymap.set("n", "<leader>q", function()
-    -- Kill all terminals first, then quit all
-    require("toggleterm").kill_all_terms()
-    vim.cmd("wqa")
+  -- Kill all terminals first, then quit all
+  require("toggleterm").kill_all_terms()
+  vim.cmd("wqa")
 end, { desc = "Quit all", silent = true })
 vim.keymap.set("n", "<leader>Q", "<cmd>qa!<CR>", { desc = "Force Quit All", silent = true })
 
 -- Lazy
 vim.keymap.set("n", "<leader>L", "<cmd>Lazy<CR>", { desc = "Open Lazy", silent = true })
+
+-- Override default "s" behavior so which-key takes control
+vim.keymap.set("n", "s", "<Nop>", { noremap = true, silent = true, desc = "Split prefix" })
+
+-- Telescope keymaps
+vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find Files", silent = true })
+vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "Live Grep", silent = true })
+vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "List Buffers", silent = true })
+vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "Help Tags", silent = true })
+
+-- Hunk keymaps
+vim.keymap.set("n", ",", function()
+  require("gitsigns").nav_hunk("prev")
+end, { desc = "Previous git hunk" })
+
+vim.keymap.set("n", ".", function()
+  require("gitsigns").nav_hunk("next")
+end, { desc = "Next git hunk" })
+
+vim.keymap.set("n", "H", "^", { desc = "Go to first non-blank char in line" })
+vim.keymap.set("n", "L", "$", { desc = "Go to end-of-line" })
+
+vim.keymap.set("n", "<Esc>", ":noh<CR>", { desc = "Clear search highlights", silent = true })
+vim.keymap.set("n", ";", ":", { desc = "Enter command-line mode" })
+vim.keymap.set("n", "<C-o>", "<C-o>zz", { desc = "Jump back then recenter", silent = true })
+vim.keymap.set("n", "<C-i>", "<C-i>zz", { desc = "Jump forward then recenter", silent = true })
+
+-- Normal mode: remap J and K for 6-line movement
+vim.keymap.set("n", "J", "6j", { desc = "Move 6 lines down" })
+vim.keymap.set("n", "K", "6k", { desc = "Move 6 lines up" })
+
+-- Normal mode: remap U for line join
+vim.keymap.set("n", "U", "gJ", { desc = "Join line with next line" })

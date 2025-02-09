@@ -80,6 +80,7 @@ return {
   -- Diff View
   {
     "sindrets/diffview.nvim",
+    lazy = false,
     cmd = {
       "DiffviewOpen",
       "DiffviewClose",

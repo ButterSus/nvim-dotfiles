@@ -54,7 +54,13 @@ vim.opt.mouse = "a"
 vim.api.nvim_create_autocmd("TextYankPost", {
   pattern = "*",
   callback = function()
-    vim.highlight.on_yank { higroup = "IncSearch", timeout = 180 }
+    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 180 })
   end,
-  group = vim.api.nvim_create_augroup("highlight_yank", { clear = true })
+  group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
 })
+
+-- Neovide
+vim.g.neovide_confirm_quit = true
+vim.g.neovide_cursor_animation_length = 0.05
+vim.g.neovide_cursor_trail_size = 0.5
+vim.opt.guifont = "Jetbrains Mono:h12"

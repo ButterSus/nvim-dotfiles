@@ -12,6 +12,22 @@ return {
         mode = { "x", "n" },
         desc = "Format buffer",
       },
+      {
+        "<leader>ft",
+        function()
+          vim.b.disable_autoformat = not vim.b.disable_autoformat
+        end,
+        mode = { "x", "n" },
+        desc = "Toggle format on save (buffer)",
+      },
+      {
+        "<leader>fT",
+        function()
+          vim.g.disable_autoformat = not vim.g.disable_autoformat
+        end,
+        mode = { "x", "n" },
+        desc = "Toggle format on save (global)",
+      },
     },
     opts = {
       formatters_by_ft = {
@@ -27,10 +43,12 @@ return {
       },
 
       -- Set up format-on-save
-      format_on_save = {
-        timeout_ms = 500,
-        lsp_fallback = true,
-      },
+      format_on_save = function(bufnr)
+        if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+          return
+        end
+        return { timeout_ms = 500, lsp_fallback = true }
+      end,
 
       -- Customize formatters
       formatters = {
@@ -43,7 +61,7 @@ return {
         verible_verilog_format = {
           command = "verible-verilog-format",
           args = { "--indentation_spaces=2", "-" },
-          stdin = true
+          stdin = true,
         },
       },
     },

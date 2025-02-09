@@ -29,9 +29,9 @@ return {
       show_keys = true,
       triggers = {
         { "<auto>", mode = "nixsotc" },
-        { "a", mode = { "n", "v" } },
+        { "s", mode = { "n" } },
       },
-      filter = function(prefix)
+      filter = function(_)
         return true -- show everything
       end,
     },
@@ -44,8 +44,6 @@ return {
         {
           { "<leader>c", group = "config/color" },
           { "<leader>d", group = "diagnostics" },
-          { "<leader>j", group = "move down" },
-          { "<leader>k", group = "move up" },
           { "<leader>o", group = "oil/open" },
           { "<leader>r", group = "rename/refactor" },
           { "<leader>t", group = "toggle/tab" },
@@ -54,13 +52,19 @@ return {
         },
       })
 
-      -- Register non-leader prefixes separately
+      -- Register non-leader prefixes
       wk.add({
         mode = { "n", "v" },
         {
           { "[", group = "prev" },
           { "]", group = "next" },
           { "g", group = "goto" },
+        },
+      })
+      wk.add({
+        mode = { "n" },
+        {
+          { "s", group = "split" },
         },
       })
     end,
