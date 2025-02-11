@@ -29,17 +29,8 @@ local function handle_directory_arg()
   if stat and stat.type == "directory" then
     -- Change directory without using shellescape
     vim.cmd.cd(arg)
-    -- Schedule NvimTree opening after lazy load
-    vim.schedule(function()
-      require("nvim-tree.api").tree.open()
-      -- Focus the editor window
-      vim.cmd("wincmd p")
-    end)
   end
 end
-
--- Execute directory handling
-handle_directory_arg()
 
 -- Setup lazy.nvim
 require("lazy").setup({
@@ -61,3 +52,8 @@ require("lazy").setup({
     },
   },
 })
+
+-- Execute directory handling
+vim.schedule(function()
+  handle_directory_arg()
+end)

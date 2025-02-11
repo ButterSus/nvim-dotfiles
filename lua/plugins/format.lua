@@ -16,6 +16,7 @@ return {
         "<leader>ft",
         function()
           vim.b.disable_autoformat = not vim.b.disable_autoformat
+          print("Format on save (Local): " .. (vim.b.disable_autoformat and "OFF" or "ON"))
         end,
         mode = { "x", "n" },
         desc = "Toggle format on save (buffer)",
@@ -24,6 +25,7 @@ return {
         "<leader>fT",
         function()
           vim.g.disable_autoformat = not vim.g.disable_autoformat
+          print("Format on save (Global): " .. (vim.g.disable_autoformat and "OFF" or "ON"))
         end,
         mode = { "x", "n" },
         desc = "Toggle format on save (global)",

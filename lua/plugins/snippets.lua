@@ -9,7 +9,7 @@ return {
 
       local ls = require("luasnip")
       -- Some basic snippets
-      ls.add_snippets("all", {
+      ls.add_snippets("python", {
         ls.snippet("main", {
           ls.text_node({ "if __name__ == '__main__':", "    " }),
           ls.insert_node(0),
@@ -31,4 +31,3 @@ return {
     end,
   },
 }
-

@@ -38,14 +38,6 @@ return {
     },
   },
 
-  -- LSP Progress Status
-  {
-    "linrongbin16/lsp-progress.nvim",
-    config = function()
-      require("lsp-progress").setup()
-    end,
-  },
-
   -- Package Manager for LSP/DAP/Linters
   {
     "williamboman/mason.nvim",
@@ -306,6 +298,7 @@ return {
       vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
       vim.keymap.set("n", "gh", require("hover").hover, { desc = "Hover documentation" })
+      vim.keymap.set("n", "Q", require("hover").hover, { desc = "Hover documentation" })
       vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
       vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions" })

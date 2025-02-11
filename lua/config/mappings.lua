@@ -28,9 +28,6 @@ vim.keymap.set("n", "<leader>Q", "<cmd>qa!<CR>", { desc = "Force Quit All", sile
 -- Lazy
 vim.keymap.set("n", "<leader>L", "<cmd>Lazy<CR>", { desc = "Open Lazy", silent = true })
 
--- Override default "s" behavior so which-key takes control
-vim.keymap.set("n", "s", "<Nop>", { noremap = true, silent = true, desc = "Split prefix" })
-
 -- Telescope keymaps
 vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find Files", silent = true })
 vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "Live Grep", silent = true })
@@ -58,5 +55,7 @@ vim.keymap.set("n", "<C-i>", "<C-i>zz", { desc = "Jump forward then recenter", s
 vim.keymap.set("n", "J", "6j", { desc = "Move 6 lines down" })
 vim.keymap.set("n", "K", "6k", { desc = "Move 6 lines up" })
 
--- Normal mode: remap U for line join
-vim.keymap.set("n", "U", "gJ", { desc = "Join line with next line" })
+-- Map U to the native join (like pressing "J" in normal mode)
+vim.keymap.set("n", "U", function()
+  vim.cmd("normal! J")
+end, { desc = "Join line with next line (native)", silent = true })

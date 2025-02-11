@@ -29,7 +29,6 @@ return {
       show_keys = true,
       triggers = {
         { "<auto>", mode = "nixsotc" },
-        { "s", mode = { "n" } },
       },
       filter = function(_)
         return true -- show everything
@@ -61,13 +60,6 @@ return {
           { "g", group = "goto" },
         },
       })
-      wk.add({
-        mode = { "n" },
-        {
-          { "s", group = "split" },
-        },
-      })
     end,
   },
 }
-

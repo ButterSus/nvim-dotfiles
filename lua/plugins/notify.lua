@@ -1,12 +1,14 @@
 return {
   {
-    "rcarriga/nvim-notify",
-    opts = {
-      render = "wrapped-compact",
-    },
+    "j-hui/fidget.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    event = "VeryLazy",
+    opts = {},
     config = function(_, opts)
-      require("notify").setup(opts)
-      vim.notify = require("notify")
+      local fidget = require("fidget")
+      fidget.setup(opts)
+      vim.notify = fidget.notify
+      require("telescope").load_extension("fidget")
     end,
   },
 }

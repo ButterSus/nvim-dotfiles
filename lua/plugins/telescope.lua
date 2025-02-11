@@ -4,7 +4,7 @@ return {
     tag = "0.1.8",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "rcarriga/nvim-notify",
+      "smartpde/telescope-recent-files",
     },
     opts = function(_, opts)
       local function flash(prompt_bufnr)
@@ -25,6 +25,7 @@ return {
           end,
         })
       end
+      require("telescope").load_extension("recent_files")
       opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
         mappings = {
           n = { s = flash },
@@ -33,7 +34,14 @@ return {
       })
     end,
     keys = {
-      { "<leader>fn", require("telescope").extensions.notify.notify, desc = "Telescope: List all notifications" },
-    }
+      { "<leader>fn", require("telescope").extensions.fidget.fidget, desc = "Telescope: List all notifications" },
+      { "<leader>fr", require("telescope.builtin").oldfiles, desc = "Telescope: Find recent files" },
+      { "<leader>fs", require("telescope.builtin").lsp_dynamic_workspace_symbols, desc = "Telescope: Find symbols" },
+      {
+        "<leader><leader>",
+        "<cmd>lua require('telescope').extensions.recent_files.pick()<cr>",
+        desc = "Telescope: Find buffers",
+      },
+    },
   },
 }
