@@ -61,7 +61,18 @@ return {
       { "<leader>gb", ":Gitsigns toggle_current_line_blame<CR>", desc = "Toggle git blame" },
       { "<leader>gd", ":Gitsigns diffthis<CR>", desc = "Git diff" },
       { "<leader>gp", ":Gitsigns preview_hunk<CR>", desc = "Preview git hunk" },
-      { "<leader>gr", ":Gitsigns reset_hunk<CR>", desc = "Reset git hunk" },
+      {
+        "<leader>gr",
+        function()
+          if vim.fn.mode() == "v" or vim.fn.mode() == "V" then
+            require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+          else
+            require("gitsigns").reset_hunk()
+          end
+        end,
+        desc = "Reset git hunk or selection",
+        mode = { "n", "x" },
+      },
       { "<leader>gR", ":Gitsigns reset_buffer<CR>", desc = "Reset git buffer" },
       { "<leader>gs", ":Gitsigns stage_hunk<CR>", desc = "Stage git hunk" },
       { "<leader>gS", ":Gitsigns stage_buffer<CR>", desc = "Stage git buffer" },

@@ -58,6 +58,7 @@ return {
       },
       livePreview = true,
       globalAfter = [[
+        vim.api.nvim_set_hl(0, "GitSignsIgnored", { fg = "#777777", italic = true })
         vim.api.nvim_set_hl(0, "GitSignsAddNr", { fg = "#d4d4d4", bg = "#2a4d3e" })
         vim.api.nvim_set_hl(0, "GitSignsChangeNr", { fg = "#d4d4d4", bg = "#34415d" })
         vim.api.nvim_set_hl(0, "GitSignsDeleteNr", { fg = "#d4d4d4", bg = "#55393d" })

@@ -54,8 +54,17 @@ local function get_cached_git_status(current_dir)
   return M.git_cache.status_cache[current_dir]
 end
 
+-- Check if a file is ignored by git
+local function is_git_ignored(current_dir, file_path)
+  vim.fn.system(
+    string.format("git -C %s check-ignore -q %s", vim.fn.shellescape(current_dir), vim.fn.shellescape(file_path))
+  )
+  -- Exit code 0 means the file is ignored, 1 means it's not ignored
+  return vim.v.shell_error == 0
+end
+
 -- Main highlight function
-function M.highlight_filename(entry, is_hidden, is_link_target, is_link_orphan)
+function M.highlight_filename(entry, _, _, _)
   -- Only process files, not directories
   if entry.type == "directory" or entry.name == ".." then
     return nil
@@ -75,17 +84,28 @@ function M.highlight_filename(entry, is_hidden, is_link_target, is_link_orphan)
     return nil
   end
 
+  -- Full path to the file
+  local full_path = current_dir .. "/" .. entry.name
+
+  -- Check if file is ignored
+  if is_git_ignored(current_dir, full_path) then
+    return "GitSignsIgnored" -- You may need to define this highlight group
+  end
+
+  -- Get relative path to git root
+  local rel_path = vim.fn.fnamemodify(
+    vim.fn.resolve(full_path), -- Resolve full path of the file
+    ":." -- Make it relative to the current directory
+  )
+
+  -- Remove leading "./" if present
+  rel_path = rel_path:gsub("^%./", "")
+
   -- Get cached status for current directory
   local status_cache = get_cached_git_status(current_dir)
   if not status_cache then
     return nil
   end
-
-  -- Get relative path to git root
-  local rel_path = vim.fn.fnamemodify(
-    vim.fn.resolve(current_dir .. "/" .. entry.name), -- Resolve full path of the file
-    ":." .. git_root -- Make it relative to the git root
-  )
 
   -- Get status for current file from cache
   local status_code = status_cache[rel_path]
@@ -105,6 +125,15 @@ function M.highlight_filename(entry, is_hidden, is_link_target, is_link_orphan)
   end
 
   return nil
+end
+
+-- Add this to ensure highlight group exists
+function M.setup()
+  -- Check if GitSignsIgnored highlight group exists, create it if not
+  local hl_exists = pcall(vim.api.nvim_get_hl, "GitSignsIgnored", true)
+  if not hl_exists then
+    vim.api.nvim_set_hl(0, "GitSignsIgnored", { fg = "#777777", italic = true })
+  end
 end
 
 return M
