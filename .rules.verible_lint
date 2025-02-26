@@ -1,5 +1,10 @@
-parameter-name-style=localparam_style:ALL_CAPS
+# Look for rules here: https://chipsalliance.github.io/verible/verilog_lint.html
+# And example is here: https://github.com/mbits-mirafra/neovim/blob/main/.rules.verible_lint
+parameter-name-style=parameter_style_regex:[a-z_][a-z0-9_]*;parameter_style:ALL_CAPS;localparam_style_regex:[a-z_][a-z0-9_]*;localparam_style:;  # SynthSchool style
+# Recommended:
++module-port
 -always-comb
 -explicit-parameter-storage-type
 -unpacked-dimensions-range-ordering
 -explicit-task-lifetime
+-module-filename

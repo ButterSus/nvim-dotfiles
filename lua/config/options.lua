@@ -29,6 +29,13 @@ vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 
 vim.opt.termguicolors = true
+---@diagnostic disable-next-line
+vim.opt.guicursor = {
+  "n-v-c:block-Cursor/lCursor", -- Block cursor in normal, visual, and command modes
+  "i:ver25-blinkwait700-blinkoff400-blinkon250-Cursor/lCursor", -- Blinking vertical line in insert mode
+  "r-cr-o:hor20-Cursor/lCursor", -- Horizontal line cursor in replace, command-line replace, and operator-pending modes
+  "a:blinkwait700-blinkoff400-blinkon250", -- Global blinking settings for all modes
+}
 vim.opt.cmdheight = 0
 
 -- Use system clipboard by default
@@ -63,4 +70,12 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.g.neovide_confirm_quit = true
 vim.g.neovide_cursor_animation_length = 0.05
 vim.g.neovide_cursor_trail_size = 0.5
-vim.opt.guifont = "Jetbrains Mono:h12"
+vim.opt.guifont = "JetbrainsMono Nerd Font:h13"
+
+-- Disable inserting comments
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    vim.opt.formatoptions:remove({ "o" })
+  end,
+})

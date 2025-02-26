@@ -5,9 +5,11 @@ return {
       "rafamadriz/friendly-snippets",
     },
     config = function()
-      require("luasnip.loaders.from_vscode").lazy_load()
-
       local ls = require("luasnip")
+      ls.config.setup({
+        enable_autosnippets = true,
+      })
+
       -- Some basic snippets
       ls.add_snippets("python", {
         ls.snippet("main", {
@@ -28,6 +30,8 @@ return {
           ls.jump(-1)
         end
       end, { silent = true })
+
+      ls.add_snippets("all", require("snippets.all.comments"))
     end,
   },
 }

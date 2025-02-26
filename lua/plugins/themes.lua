@@ -57,9 +57,17 @@ return {
         "github_light_high_contrast",
       },
       livePreview = true,
+      globalAfter = [[
+        vim.api.nvim_set_hl(0, "GitSignsAddNr", { fg = "#d4d4d4", bg = "#2a4d3e" })
+        vim.api.nvim_set_hl(0, "GitSignsChangeNr", { fg = "#d4d4d4", bg = "#34415d" })
+        vim.api.nvim_set_hl(0, "GitSignsDeleteNr", { fg = "#d4d4d4", bg = "#55393d" })
+        vim.api.nvim_set_hl(0, "GitSignsChangedeleteNr", { link = "GitSignsChangeNr" })
+        vim.api.nvim_set_hl(0, "GitSignsTopdeleteNr", { link = "GitSignsDeleteNr" })
+        vim.api.nvim_set_hl(0, "GitSignsUntrackedNr", { link = "GitSignsAddNr" })
+      ]],
     },
     keys = {
-      { "<leader>ct", "<cmd>Themery<CR>", desc = "Theme switcher" }
-    }
-  }
+      { "<leader>ct", "<cmd>Themery<CR>", desc = "Theme switcher" },
+    },
+  },
 }

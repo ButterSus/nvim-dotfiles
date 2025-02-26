@@ -23,9 +23,13 @@ return {
   {
     "stevearc/oil.nvim",
     lazy = false,
-    dependencies = { "nvim-tree/nvim-web-devicons", "wintermute-cell/gitignore.nvim" },
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+      "wintermute-cell/gitignore.nvim",
+    },
     opts = {
       default_file_explorer = true,
+      watch_for_changes = true,
       keymaps = {
         -- Remove old mappings
         ["<C-s>"] = false,
@@ -46,7 +50,7 @@ return {
         -- Standard Oil mappings
         ["g?"] = { "actions.show_help", mode = "n" },
         ["<CR>"] = "actions.select",
-        ["p"] = "actions.preview",
+        ["m"] = "actions.preview",
         ["q"] = { "actions.close", mode = "n" },
         ["r"] = "actions.refresh",
         ["<BS>"] = { "actions.parent", mode = "n" },
@@ -61,7 +65,7 @@ return {
         },
         ["g\\"] = { "actions.toggle_trash", mode = "n" },
         ["~"] = { "actions.open_cwd", mode = "n" },
-        ["<leader>cd"] = { "actions.cd", mode = "n" },
+        ["<leader>cd"] = { "actions.tcd", mode = "n" },
         ["<leader>gi"] = "<cmd>Gitignore<CR>",
 
         -- Add file to buffers using <Tab>
@@ -123,14 +127,25 @@ return {
             vim.notify("File not found in buffers: " .. fullpath)
           end
         end,
+        -- ["<leader>vf"] = {
+        --   function()
+        --     local current_dir = require("oil").get_current_dir()
+        --     if current_dir then
+        --       require("plugins/utils/lsp").generate_filelist_and_reload(current_dir)
+        --       -- NOTE: Since there is no reload function for oil.nvim API, then we must use watch_for_changes option set to true
+        --     else
+        --       vim.notify("Could not determine Oil directory", vim.log.levels.ERROR)
+        --     end
+        --   end,
+        --   desc = "Generate verible.filelist and reload LSP",
+        -- },
       },
       use_default_mappings = false,
       view_options = {
         show_hidden = false,
+        highlight_filename = require("plugins.utils.git_status").highlight_filename,
       },
-      win_options = {
-        signcolumn = "yes:2",
-      },
+      win_options = {},
     },
     config = function(_, opts)
       -- Declare a global function to retrieve Oil's current directory for the winbar display.
@@ -151,6 +166,7 @@ return {
         "<A-n>",
         function()
           local buf = vim.api.nvim_get_current_buf()
+          local is_empty_buf = vim.fn.expand("%") == ""
           local win_count = 0
 
           -- Count how many windows are using the current buffer
@@ -164,7 +180,7 @@ return {
           vim.cmd("Oil")
 
           -- Only delete the buffer if it was used in a single window
-          if win_count == 1 then
+          if win_count == 1 and not is_empty_buf then
             -- Guard against the buffer being invalid or deleted already
             if vim.api.nvim_buf_is_valid(buf) then
               require("mini.bufremove").delete(buf, false)
@@ -173,17 +189,18 @@ return {
         end,
         desc = "Open file explorer (delete buffer)",
       },
-      { "<A-S-n>", "<cmd>Oil<CR>", desc = "Open file explorer" },
+      {
+        "<A-S-n>",
+        function()
+          if vim.fn.expand("%") == "" then
+            vim.cmd("Oil " .. vim.fn.getcwd())
+          else
+            vim.cmd("Oil")
+          end
+        end,
+        desc = "Open file explorer",
+      },
     },
-  },
-
-  -- Oil Git Status
-  {
-    "refractalize/oil-git-status.nvim",
-    dependencies = {
-      "stevearc/oil.nvim",
-    },
-    config = true,
   },
 
   -- Better WEB navigation

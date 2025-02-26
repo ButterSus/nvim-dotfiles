@@ -8,7 +8,7 @@ return {
         component_separators = "|",
         section_separators = "",
         -- Only show statusline on the bottom window
-        globalstatus = true,
+        globalstatus = true, -- There is an issue: https://github.com/nvim-lualine/lualine.nvim/issues/1220
       },
       sections = {
         lualine_a = { "mode" },

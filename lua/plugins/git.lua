@@ -4,14 +4,6 @@ return {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      -- Define custom highlight groups using new API
-      vim.api.nvim_set_hl(0, "GitSignsAddNr", { fg = "#d4d4d4", bg = "#2a4d3e" })
-      vim.api.nvim_set_hl(0, "GitSignsChangeNr", { fg = "#d4d4d4", bg = "#34415d" })
-      vim.api.nvim_set_hl(0, "GitSignsDeleteNr", { fg = "#d4d4d4", bg = "#55393d" })
-      vim.api.nvim_set_hl(0, "GitSignsChangedeleteNr", { link = "GitSignsChangeNr" })
-      vim.api.nvim_set_hl(0, "GitSignsTopdeleteNr", { link = "GitSignsDeleteNr" })
-      vim.api.nvim_set_hl(0, "GitSignsUntrackedNr", { link = "GitSignsAddNr" })
-
       require("gitsigns").setup({
         signs = {
           add = { text = "▎" },
@@ -117,12 +109,86 @@ return {
     "kdheepak/lazygit.nvim",
     cmd = "LazyGit",
     keys = {
-      { "<leader>gg", "<cmd>LazyGit<CR>", desc = "LazyGit" },
+      { "<leader>gG", "<cmd>LazyGit<CR>", desc = "LazyGit" },
     },
     config = function()
-      -- Optionally: adjust lazygit's floating window transparency
       vim.g.lazygit_floating_window_winblend = 0
-      -- More lazygit configuration can be added here if needed
     end,
+  },
+
+  -- Git Graph
+  {
+    "isakbm/gitgraph.nvim",
+    dependencies = { "sindrets/diffview.nvim" },
+    opts = {
+      symbols = {
+        merge_commit = "",
+        commit = "",
+        merge_commit_end = "",
+        commit_end = "",
+
+        -- Advanced symbols
+        GVER = "",
+        GHOR = "",
+        GCLD = "",
+        GCRD = "╭",
+        GCLU = "",
+        GCRU = "",
+        GLRU = "",
+        GLRD = "",
+        GLUD = "",
+        GRUD = "",
+        GFORKU = "",
+        GFORKD = "",
+        GRUDCD = "",
+        GRUDCU = "",
+        GLUDCD = "",
+        GLUDCU = "",
+        GLRDCL = "",
+        GLRDCR = "",
+        GLRUCL = "",
+        GLRUCR = "",
+      },
+      format = {
+        timestamp = "%H:%M:%S %d-%m-%Y",
+        fields = { "hash", "timestamp", "author", "branch_name", "tag" },
+      },
+      hooks = {
+        -- Check diff of a commit
+        on_select_commit = function(commit)
+          vim.notify("DiffviewOpen " .. commit.hash .. "^!")
+          vim.cmd(":DiffviewOpen " .. commit.hash .. "^!")
+        end,
+        -- Check diff from commit a -> commit b
+        on_select_range_commit = function(from, to)
+          vim.notify("DiffviewOpen " .. from.hash .. "~1.." .. to.hash)
+          vim.cmd(":DiffviewOpen " .. from.hash .. "~1.." .. to.hash)
+        end,
+      },
+    },
+    keys = {
+      {
+        "<leader>gl",
+        function()
+          require("gitgraph").draw({}, { all = true, max_count = 5000 })
+        end,
+        desc = "GitGraph - Draw",
+      },
+    },
+  },
+
+  -- NeoGit
+
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    config = true,
+    keys = {
+      { "<leader>gg", "<cmd>Neogit kind=split_below_all<CR>", desc = "Neogit" },
+    },
   },
 }

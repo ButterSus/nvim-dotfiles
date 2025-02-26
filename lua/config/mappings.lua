@@ -59,3 +59,11 @@ vim.keymap.set("n", "K", "6k", { desc = "Move 6 lines up" })
 vim.keymap.set("n", "U", function()
   vim.cmd("normal! J")
 end, { desc = "Join line with next line (native)", silent = true })
+
+-- Map <A-CR> in insert mode to act as a regular enter
+vim.keymap.set("i", "<A-CR>", function()
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "n", false)
+end, { desc = "Insert line below" })
+
+-- Search for selected text
+vim.keymap.set("x", "//", 'y/<C-R>"<CR>N', { desc = "Search for selected text", silent = true })

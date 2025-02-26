@@ -34,7 +34,6 @@ return {
       "mason.nvim",
       "mason-lspconfig.nvim",
       "folke/neodev.nvim",
-      "mfussenegger/nvim-lint",
     },
   },
 
@@ -49,8 +48,8 @@ return {
       ensure_installed = {
         "lua-language-server",
         "python-lsp-server",
-        "ruff",
         "verible",
+        "ruff",
       },
     },
     config = function(_, opts)
@@ -232,69 +231,47 @@ return {
         },
         capabilities = require("cmp_nvim_lsp").default_capabilities(),
       })
+      lspconfig.verible.setup({
+        on_attach = on_attach,
+        capabilities = require("cmp_nvim_lsp").default_capabilities(),
+        root_dir = function()
+          return vim.uv.cwd()
+        end,
+        cmd = { "verible-verilog-ls", "--rules_config", vim.fn.expand("~/.config/nvim/.rules.verible_lint") },
+
+        on_new_config = function(new_config, root_dir)
+          -- Generate a unique temp file path
+          local tmp_file = vim.fn.tempname()
+          local max_files = 20 -- Set the maximum number of files
+
+          -- Find all Verilog files and save the list in the temp file
+          local cmd = string.format(
+            'find %s -name "*.sv" -o -name "*.svh" -o -name "*.v" | sort | head -n %d > %s',
+            vim.fn.shellescape(root_dir),
+            max_files,
+            vim.fn.shellescape(tmp_file)
+          )
+
+          -- Run the find command asynchronously
+          vim.fn.jobstart(cmd, {
+            on_exit = function()
+              -- Update the LSP command with the generated filelist
+              new_config.cmd = {
+                "verible-verilog-ls",
+                "--rules_config",
+                vim.fn.expand("~/.config/nvim/.rules.verible_lint"),
+                "--file_list_path",
+                tmp_file,
+              }
+            end,
+          })
+        end,
+      })
+
       lspconfig.ruff.setup({})
 
-      local use_verilator = true -- You could make this a toggle function
-      local lint = require("lint")
-
-      if use_verilator then
-        -- Disable Verible diagnostics
-        lspconfig.verible.setup({
-          on_attach = function(client, bufnr)
-            -- Call the common on_attach function to keep other functionality
-            on_attach(client, bufnr)
-
-            -- Disable diagnostics for Verible specifically
-            if client.name == "verible" then
-              -- Disable the diagnostic capability
-              client.server_capabilities.diagnosticProvider = false
-
-              -- Override the publish diagnostics handler to do nothing
-              client.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
-                -- Do nothing with diagnostics
-              end
-            end
-          end,
-          cmd = { "verible-verilog-ls", "--rules_config", vim.fn.expand("~/.config/nvim/.rules.verible_lint") },
-          handlers = {
-            -- Also set handler at setup level to ensure it's disabled
-            ["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
-              -- Do nothing with diagnostics
-            end,
-          },
-        })
-
-        -- Set Verilator as the linter for Verilog and SystemVerilog
-        lint.linters_by_ft.verilog = { "verilator" }
-        lint.linters_by_ft.systemverilog = { "verilator" }
-
-        -- Configure Verilator arguments
-        local verilator = lint.linters.verilator
-        local config_files = vim.fs.find("verilator.conf", { upward = true, stop = vim.env.HOME })
-        local config_file = config_files[1]
-
-        verilator.args = {
-          "-sv",
-          "-Wall",
-          "--lint-only",
-        }
-
-        if config_file then
-          table.insert(verilator.args, "-f")
-          table.insert(verilator.args, config_file)
-        end
-
-        lint.linters.verilator = verilator
-
-        -- Ensure linting triggers on write/leave
-        vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "TextChanged", "InsertLeave" }, {
-          callback = function()
-            require("lint").try_lint(nil, { ignore_errors = true })
-          end,
-        })
-      end
-
       -- Global LSP mappings
+      local builtin = require("telescope.builtin")
       vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
       vim.keymap.set("n", "gh", require("hover").hover, { desc = "Hover documentation" })
@@ -303,7 +280,9 @@ return {
       vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions" })
       vim.keymap.set("n", "<A-e>", vim.lsp.buf.code_action, { desc = "Code actions" })
-      vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Show references" })
+      vim.keymap.set("n", "gr", function()
+        builtin.lsp_references({ initial_mode = "normal" })
+      end, { desc = "Show references" })
       vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float, { desc = "Float diagnostic" })
 
       -- Diagnostic navigation
@@ -352,5 +331,12 @@ return {
         goto_reference(false)
       end, { desc = "Previous reference" })
     end,
+  },
+
+  -- Better Comments
+  {
+    "numToStr/Comment.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {},
   },
 }

@@ -4,9 +4,29 @@ return {
     tag = "0.1.8",
     dependencies = {
       "nvim-lua/plenary.nvim",
+      "BurntSushi/ripgrep",
       "smartpde/telescope-recent-files",
+      "nvim-telescope/telescope-ui-select.nvim",
     },
-    opts = function(_, opts)
+    opts = {
+      extensions = {
+        recent_files = {
+          ignore_patterns = { "/tmp/", "\\." },
+          show_current_file = true,
+        },
+        ["ui-select"] = {
+          require("telescope.themes").get_dropdown({
+            winblend = 10,
+            borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+            initial_mode = "normal",
+          }),
+        },
+      },
+      defaults = {
+        initial_mode = "insert",
+      },
+    },
+    config = function(_, opts)
       local function flash(prompt_bufnr)
         require("flash").jump({
           pattern = "^",
@@ -25,13 +45,15 @@ return {
           end,
         })
       end
-      require("telescope").load_extension("recent_files")
       opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
         mappings = {
           n = { s = flash },
           i = { ["<c-s>"] = flash },
         },
       })
+      require("telescope").setup(opts)
+      require("telescope").load_extension("recent_files")
+      require("telescope").load_extension("ui-select")
     end,
     keys = {
       { "<leader>fn", require("telescope").extensions.fidget.fidget, desc = "Telescope: List all notifications" },

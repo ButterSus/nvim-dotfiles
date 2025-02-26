@@ -90,13 +90,32 @@ return {
               vim.notify("Selected node is neither file nor directory", vim.log.levels.WARN)
               return
             end
-            vim.cmd("cd " .. target_dir)
+            vim.cmd("tcd " .. target_dir)
             vim.notify("Changed directory to: " .. target_dir)
           end,
+          -- ["<leader>vf"] = {
+          --   function(state)
+          --     local node = state.tree:get_node()
+          --     if not node then
+          --       vim.notify("No node selected", vim.log.levels.WARN)
+          --       return
+          --     end
+          --     local target_dir = ""
+          --     if node.type == "directory" or node.type == "file" then
+          --       target_dir = vim.fn.fnamemodify(node.path, ":h")
+          --     else
+          --       vim.notify("Selected node is neither file nor directory", vim.log.levels.WARN)
+          --       return
+          --     end
+          --     require("plugins/utils/lsp").generate_filelist_and_reload(target_dir)
+          --     require("neo-tree.sources.filesystem.commands").refresh(state)
+          --   end,
+          --   desc = "Generate verible.filelist and reload LSP",
+          -- },
         },
       },
       filesystem = {
-        hijack_netrw_behavior = "open_default",
+        hijack_netrw_behavior = "disabled",
         filtered_items = {
           visible = false,
           hide_dotfiles = false,
@@ -126,12 +145,17 @@ return {
       },
     },
     keys = {
-      { "<leader>e", "<cmd>Neotree toggle<CR>", desc = "Toggle file explorer" },
-      { "<leader>fe", "<cmd>Neotree focus<CR>", desc = "Focus file explorer" },
+      {
+        "<leader>e",
+        function()
+          require("neo-tree.command").execute({ toggle = true, reveal = true, action = "focus" })
+        end,
+        desc = "Toggle file explorer",
+      },
       {
         "<C-n>",
         function()
-          require("neo-tree.command").execute({ toggle = true, reveal = false })
+          require("neo-tree.command").execute({ toggle = true, action = "show" })
         end,
         desc = "Toggle file explorer (no focus)",
       },

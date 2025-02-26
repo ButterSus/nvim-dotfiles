@@ -5,6 +5,33 @@ return {
     event = "InsertEnter",
     opts = {},
   },
+  {
+    "https://github.com/brianhuster/nvim-treesitter-endwise",
+    event = "InsertEnter",
+  },
+
+  -- Rainbow Delimiters
+  {
+    "HiPhish/rainbow-delimiters.nvim",
+    event = "VeryLazy",
+    opts = {
+      highlight = {
+        "RainbowDelimiterRed",
+        "RainbowDelimiterOrange",
+        "RainbowDelimiterYellow",
+        "RainbowDelimiterGreen",
+        "RainbowDelimiterAqua",
+        "RainbowDelimiterBlue",
+        "RainbowDelimiterPurple",
+      },
+      query = {
+        verilog = "rainbow-blocks",
+      },
+    },
+    config = function(_, opts)
+      require("rainbow-delimiters.setup").setup(opts)
+    end,
+  },
 
   -- Exchange text (cx{motion} or X in visual mode)
   {
@@ -24,11 +51,11 @@ return {
     opts = {
       mappings = {
         add = "ys", -- Add surrounding in Normal and Visual modes
-        delete = "ds", -- Delete surrounding
+        delete = "gsd", -- Delete surrounding
         find = "gsf", -- Find surrounding (to the right)
         find_left = "gsF", -- Find surrounding (to the left)
         highlight = "gsh", -- Highlight surrounding
-        replace = "cs", -- Change surrounding
+        replace = "gsc", -- Change surrounding
         update_n_lines = "", -- Update `n_lines`
         suffix_last = "", -- Suffix to search with "prev" method
         suffix_next = "", -- Suffix to search with "next" method
@@ -60,14 +87,26 @@ return {
 
       -- Make special mapping for "add surrounding for line"
       vim.keymap.set("n", "yss", "ys_", { remap = true })
-    end,
-  },
 
-  -- Enhanced text objects
-  {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPost", "BufNewFile" },
+      -- Dynamic remapping
+      vim.keymap.set("n", "ds", function()
+        local next_char = vim.fn.getcharstr()
+        if next_char == "%" then
+          return vim.api.nvim_replace_termcodes("<Plug>(matchup-delete)", true, true, true)
+        else
+          return "gsd" .. next_char
+        end
+      end, { remap = true, expr = true, noremap = true })
+
+      vim.keymap.set("n", "cs", function()
+        local next_char = vim.fn.getcharstr()
+        if next_char == "%" then
+          return vim.api.nvim_replace_termcodes("<Plug>(matchup-change)", true, true, true)
+        else
+          return "gsc" .. next_char
+        end
+      end, { remap = true, expr = true, noremap = true })
+    end,
   },
 
   -- Distraction-free coding
@@ -162,5 +201,49 @@ return {
     "fladson/vim-kitty",
     ft = "kitty",
     tag = "*", -- You can select a tagged version
+  },
+
+  -- NeoClip
+  {
+    "AckslD/nvim-neoclip.lua",
+    event = "VeryLazy",
+    dependencies = {
+      { "nvim-telescope/telescope.nvim" },
+    },
+    opts = {
+      keys = {
+        telescope = {
+          i = {
+            select = "<cr>",
+            paste = "<A-w>",
+            paste_behind = {},
+            replay = {},
+            delete = {},
+            edit = {},
+            custom = {},
+          },
+          n = {
+            select = "<cr>",
+            paste = "<A-w>",
+            paste_behind = {},
+            replay = {},
+            delete = {},
+            edit = {},
+            custom = {},
+          },
+        },
+      },
+    },
+    keys = {
+      { "<A-w>", "<cmd>Telescope neoclip<cr>", desc = "NeoClip" },
+    },
+  },
+
+  -- Guess Indent
+  {
+    "nmac427/guess-indent.nvim",
+    opts = {
+      auto_cmd = true,
+    },
   },
 }
