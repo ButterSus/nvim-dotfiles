@@ -68,14 +68,17 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- Neovide
 vim.g.neovide_confirm_quit = true
-vim.g.neovide_cursor_animation_length = 0.05
-vim.g.neovide_cursor_trail_size = 0.5
-vim.opt.guifont = "JetbrainsMono Nerd Font:h13"
+vim.g.neovide_cursor_animation_length = 0.0
+vim.g.neovide_cursor_trail_size = 0.0
+vim.opt.guifont = "JetbrainsMono Nerd Font:h17"
 
 -- Disable inserting comments
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",
   callback = function()
-    vim.opt.formatoptions:remove({ "o" })
+    vim.opt.formatoptions:remove("o")
   end,
 })
+
+-- Auto-session
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

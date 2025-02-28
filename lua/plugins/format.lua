@@ -135,6 +135,7 @@ return {
             "--named_port_alignment=align",
             "--named_port_indentation=indent",
             "--port_declarations_right_align_packed_dimensions=true",
+            "--try_wrap_long_lines=true",
             "-",
           },
           stdin = true,

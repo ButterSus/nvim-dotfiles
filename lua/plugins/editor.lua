@@ -135,6 +135,10 @@ return {
         twilight = { enabled = false }, -- dims inactive portions of the code
         gitsigns = { enabled = true },
         tmux = { enabled = true },
+        neovide = {
+          enabled = true,
+          scale_factor = 1.25,
+        },
       },
       on_open = function(_)
         vim.opt.wrap = true
@@ -192,6 +196,16 @@ return {
         end,
         desc = "Jump to previous todo",
         mode = { "n", "v" },
+      },
+      {
+        "<leader>fl",
+        "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>",
+        desc = "Find Labels (TODOs/FIXs)",
+      },
+      {
+        "<leader>fL",
+        "<cmd>TodoTelescope<cr>",
+        desc = "Find All Labels (TODOs/FIXs)",
       },
     },
   },

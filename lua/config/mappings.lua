@@ -67,3 +67,20 @@ end, { desc = "Insert line below" })
 
 -- Search for selected text
 vim.keymap.set("x", "//", 'y/<C-R>"<CR>N', { desc = "Search for selected text", silent = true })
+
+-- Resize NeoVide font
+if vim.g.neovide then
+  vim.keymap.set({ "n", "x" }, "<C-=>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>")
+  vim.keymap.set({ "n", "x" }, "<C-->", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>")
+  vim.keymap.set({ "n", "x" }, "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>")
+  vim.keymap.set(
+    { "n", "x" },
+    "<C-ScrollWheelUp>",
+    ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>"
+  )
+  vim.keymap.set(
+    { "n", "x" },
+    "<C-ScrollWheelDown>",
+    ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>"
+  )
+end
