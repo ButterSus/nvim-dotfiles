@@ -19,7 +19,7 @@ return {
       {
         "<leader>fn",
         function() require("telescope").extensions.fidget.fidget() end,
-        desc = "Telescope: List all notifications",
+        desc = "Find notifications",
       },
     },
   },

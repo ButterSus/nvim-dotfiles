@@ -68,6 +68,7 @@ return {
   { import = "astrocommunity.editing-support.multiple-cursors-nvim" },
 
   -- Recipes
+  { import = "astrocommunity.recipes.telescope-nvchad-theme" },
   { import = "astrocommunity.recipes.cache-colorscheme" },
   { import = "astrocommunity.recipes.telescope-lsp-mappings" },
   { import = "astrocommunity.recipes.vscode" },
