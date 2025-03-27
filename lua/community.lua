@@ -11,6 +11,7 @@ return {
   { import = "astrocommunity.pack.typst" },
   { import = "astrocommunity.pack.verilog" },
   { import = "astrocommunity.pack.lua" },
+  { import = "astrocommunity.pack.cpp" },
   { import = "astrocommunity.pack.json" },
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.fish" },

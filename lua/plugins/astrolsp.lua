@@ -1,3 +1,17 @@
+local verible_rules = {
+  "parameter-name-style=parameter_style_regex:[a-z_][a-z0-9_]*",
+  "parameter_style:ALL_CAPS",
+  "localparam_style_regex:[a-z_][a-z0-9_]*",
+  "localparam_style:",
+  "+module-port",
+  "-always-comb",
+  "-explicit-parameter",
+  "-storage-type",
+  "-unpacked-dimensions-range-ordering",
+  "-explicit-task-lifetime",
+  "-module-filename",
+}
+
 ---@type LazySpec
 return {
   "AstroNvim/astrolsp",
@@ -12,16 +26,17 @@ return {
       format_on_save = {
         enabled = true,
         allow_filetypes = {},
-        ignore_filetypes = {},
+        ignore_filetypes = { "systemverilog", "verilog" },
       },
       disabled = {},
       timeout_ms = 1000,
     },
     servers = {},
-    -- Customize language server configuration options passed to `lspconfig`
     ---@diagnostic disable: missing-fields
     config = {
-      -- clangd = { capabilities = { offsetEncoding = "utf-8" } },
+      verible = {
+        cmd = { "verible-verilog-ls", "--rules", table.concat(verible_rules, ";") },
+      },
     },
     -- customize how language servers are attached
     handlers = {

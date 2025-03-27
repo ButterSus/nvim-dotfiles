@@ -16,3 +16,6 @@ vim.keymap.set("n", "-", ":vertical resize -2<CR>", { silent = true, desc = "Dec
 vim.keymap.set("n", "=", ":vertical resize +2<CR>", { silent = true, desc = "Increase width" })
 vim.keymap.set("n", "_", ":resize -2<CR>", { silent = true, desc = "Decrease height" })
 vim.keymap.set("n", "+", ":resize +2<CR>", { silent = true, desc = "Increase height" })
+
+-- Enter Normal mode in Terminal
+vim.api.nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
