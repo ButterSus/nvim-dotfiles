@@ -39,7 +39,7 @@ return {
       opts = {
         mappings = {
           n = {
-            ["<leader>W"] = { desc = "Focus" },
+            ["<leader>W"] = { desc = "󰼀 Focus" },
             ["<leader>Wa"] = { "<cmd>FocusAutoresize<CR>", desc = "Focus autoresize" },
             ["<leader>W="] = { "<cmd>FocusEqualise<CR>", desc = "Focus equalize" },
             ["<leader>Wm"] = { "<cmd>FocusMaximise<CR>", desc = "Focus maximise" },
