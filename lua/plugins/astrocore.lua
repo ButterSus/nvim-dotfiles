@@ -20,6 +20,36 @@ return {
           end,
         },
       },
+      -- Add new group for alpha handling
+      alpha_handling = {
+        {
+          event = { "BufAdd", "BufEnter" },
+          desc = "Close alpha buffer when a new buffer is opened",
+          callback = function()
+            local bufs = vim.fn.getbufinfo()
+            local listed_bufs = 0
+            local alpha_buf = nil
+            
+            -- Count listed buffers and find alpha buffer
+            for _, buf in ipairs(bufs) do
+              if buf.listed == 1 and buf.name:match(".*neo%-tree.*") == nil then
+                listed_bufs = listed_bufs + 1
+              end
+              if buf.name:match(".*alpha.*") then
+                alpha_buf = buf.bufnr
+              end
+            end
+            
+            -- If we have other buffers and alpha buffer exists, close alpha
+            if listed_bufs > 1 and alpha_buf then
+              local current_buf = vim.api.nvim_get_current_buf()
+              if current_buf ~= alpha_buf then
+                vim.api.nvim_buf_delete(alpha_buf, { force = true })
+              end
+            end
+          end,
+        },
+      },
     },
     -- Configuration table of session options for AstroNvim's session management powered by Resession
     sessions = {
@@ -84,8 +114,17 @@ return {
         ["<Leader>c"] = {
           function()
             local bufs = vim.fn.getbufinfo { buflisted = 1 }
-            require("astrocore.buffer").close(0)
-            if require("astrocore").is_available "alpha-nvim" and not bufs[2] then require("alpha").start() end
+            
+            -- If this is the last buffer, show alpha after closing
+            if #bufs <= 1 and require("astrocore").is_available "alpha-nvim" then
+              -- Close current buffer first
+              require("astrocore.buffer").close(0)
+              -- Then create alpha buffer (automatically becomes current)
+              require("alpha").start(true)
+            else
+              -- Standard buffer close for non-last buffer
+              require("astrocore.buffer").close(0)
+            end
           end,
           desc = "Close buffer",
         },
