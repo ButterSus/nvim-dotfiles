@@ -28,16 +28,4 @@ return {
       },
     },
   },
-  keys = {
-    {
-      "<C-=>",
-      function() vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1 end,
-      desc = "Scale up NeoVide",
-    },
-    {
-      "<C-->",
-      function() vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1 end,
-      desc = "Scale down NeoVide",
-    },
-  },
 }

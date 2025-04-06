@@ -18,4 +18,7 @@ vim.keymap.set("n", "_", ":resize -2<CR>", { silent = true, desc = "Decrease hei
 vim.keymap.set("n", "+", ":resize +2<CR>", { silent = true, desc = "Increase height" })
 
 -- Enter Normal mode in Terminal
-vim.api.nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
+
+-- Reset highlight
+vim.keymap.set({ "n", "x" }, "<Esc>", ":noh<CR>", { silent = true })

@@ -51,6 +51,9 @@ return {
   { import = "astrocommunity.lsp.lsp-signature-nvim" },
   { import = "astrocommunity.lsp.inc-rename-nvim" },
 
+  -- Search
+  { import = "astrocommunity.search.nvim-hlslens" },
+
   -- Motion
   { import = "astrocommunity.motion.flash-nvim" },
   { import = "astrocommunity.motion.vim-matchup" },
