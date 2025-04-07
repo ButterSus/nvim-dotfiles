@@ -28,9 +28,6 @@ return {
   { import = "astrocommunity.colorscheme.onedarkpro-nvim" },
   { import = "astrocommunity.colorscheme.vscode-nvim" },
 
-  -- Icons
-  { import = "astrocommunity.icon.mini-icons" },
-
   -- File explorer
   { import = "astrocommunity.file-explorer.mini-files" },
 
@@ -39,9 +36,6 @@ return {
   { import = "astrocommunity.git.blame-nvim" },
   { import = "astrocommunity.git.neogit" },
   { import = "astrocommunity.git.gitgraph-nvim" },
-
-  -- Indent
-  { import = "astrocommunity.indent.indent-blankline-nvim" },
 
   -- Keybinding
   { import = "astrocommunity.keybinding.nvcheatsheet-nvim" },
@@ -64,7 +58,6 @@ return {
   { import = "astrocommunity.terminal-integration.vim-tmux-navigator" },
 
   -- Completion
-  { import = "astrocommunity.completion.nvim-cmp" },
   { import = "astrocommunity.completion.cmp-cmdline" },
 
   -- Editing support
@@ -72,7 +65,6 @@ return {
   { import = "astrocommunity.editing-support.nvim-treesitter-context" },
   { import = "astrocommunity.editing-support.nvim-treesitter-endwise" },
   { import = "astrocommunity.editing-support.rainbow-delimiters-nvim" },
-  { import = "astrocommunity.editing-support.zen-mode-nvim" },
   { import = "astrocommunity.editing-support.bigfile-nvim" },
   { import = "astrocommunity.editing-support.multiple-cursors-nvim" },
   { import = "astrocommunity.editing-support.undotree" },
@@ -98,7 +90,4 @@ return {
   { import = "astrocommunity.media.img-clip-nvim" },
   { import = "astrocommunity.media.neocord-nvim" },
   { import = "astrocommunity.media.image-nvim" },
-
-  -- Fuzzy Finder
-  { import = "astrocommunity.fuzzy-finder.snacks-picker" },
 }

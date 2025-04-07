@@ -1,3 +1,5 @@
+if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+
 return {
   {
     "hrsh7th/nvim-cmp",
@@ -78,17 +80,17 @@ return {
         mapping = {
           -- Use Ctrl+Space to trigger completion menu
           ["<C-Space>"] = cmp.mapping.complete(),
-          
+
           -- Select previous/next item
           ["<C-p>"] = cmp.mapping.select_prev_item(),
           ["<C-n>"] = cmp.mapping.select_next_item(),
           ["<Up>"] = cmp.mapping.select_prev_item(),
           ["<Down>"] = cmp.mapping.select_next_item(),
-          
+
           -- Scroll docs
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          
+
           -- Tab for completion and navigation
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
@@ -97,7 +99,7 @@ return {
               fallback()
             end
           end, { "i", "s" }),
-          
+
           ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
@@ -105,10 +107,9 @@ return {
               fallback()
             end
           end, { "i", "s" }),
-          
+
           -- Accept completion
-          ["<CR>"] = cmp.mapping.confirm({ select = false }),
-          
+          ["<CR>"] = cmp.mapping.confirm { select = false },
           -- Close completion menu
           ["<C-e>"] = cmp.mapping.abort(),
         },

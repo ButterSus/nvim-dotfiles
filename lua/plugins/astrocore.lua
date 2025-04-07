@@ -29,23 +29,42 @@ return {
             local bufs = vim.fn.getbufinfo()
             local listed_bufs = 0
             local alpha_buf = nil
-            
+
             -- Count listed buffers and find alpha buffer
             for _, buf in ipairs(bufs) do
-              if buf.listed == 1 and buf.name:match(".*neo%-tree.*") == nil then
-                listed_bufs = listed_bufs + 1
-              end
-              if buf.name:match(".*alpha.*") then
-                alpha_buf = buf.bufnr
-              end
+              if buf.listed == 1 and buf.name:match ".*neo%-tree.*" == nil then listed_bufs = listed_bufs + 1 end
+              if buf.name:match ".*alpha.*" then alpha_buf = buf.bufnr end
             end
-            
+
             -- If we have other buffers and alpha buffer exists, close alpha
             if listed_bufs > 1 and alpha_buf then
               local current_buf = vim.api.nvim_get_current_buf()
-              if current_buf ~= alpha_buf then
-                vim.api.nvim_buf_delete(alpha_buf, { force = true })
-              end
+              if current_buf ~= alpha_buf then vim.api.nvim_buf_delete(alpha_buf, { force = true }) end
+            end
+          end,
+        },
+      },
+      
+      -- Add new group for placeholder handling
+      placeholder_handling = {
+        {
+          event = { "BufAdd", "BufEnter" },
+          desc = "Close placeholder buffer when a new buffer is opened",
+          callback = function()
+            local bufs = vim.fn.getbufinfo()
+            local listed_bufs = 0
+            local placeholder_buf = nil
+
+            -- Count listed buffers and find placeholder buffer
+            for _, buf in ipairs(bufs) do
+              if buf.listed == 1 and buf.name:match ".*neo%-tree.*" == nil then listed_bufs = listed_bufs + 1 end
+              if buf.name:match ".*%[Placeholder%].*" then placeholder_buf = buf.bufnr end
+            end
+
+            -- If we have other buffers and placeholder buffer exists, close placeholder
+            if listed_bufs > 1 and placeholder_buf then
+              local current_buf = vim.api.nvim_get_current_buf()
+              if current_buf ~= placeholder_buf then vim.api.nvim_buf_delete(placeholder_buf, { force = true }) end
             end
           end,
         },
@@ -70,7 +89,7 @@ return {
       large_buf = { size = 1024 * 256, lines = 10000 },
       autopairs = true,
       cmp = true,
-      diagnostics_mode = 3,
+      diagnostics = { virtual_text = true, virtual_lines = false }, -- diagnostic settings on startup
       highlighturl = true,
       notifications = true,
     },
@@ -78,6 +97,19 @@ return {
     diagnostics = {
       virtual_text = true,
       underline = true,
+    },
+    -- passed to `vim.filetype.add`
+    filetypes = {
+      -- see `:h vim.filetype.add` for usage
+      -- extension = {
+      --   foo = "fooscript",
+      -- },
+      -- filename = {
+      --   [".foorc"] = "fooscript",
+      -- },
+      -- pattern = {
+      --   [".*/etc/foo/.*"] = "fooscript",
+      -- },
     },
     -- vim options can be configured here
     options = {
@@ -110,17 +142,50 @@ return {
           desc = "Close buffer from tabline",
         },
 
-        -- Open Alpha automatically when no more buffers
+        -- Open placeholder buffer when no more buffers
         ["<Leader>c"] = {
           function()
             local bufs = vim.fn.getbufinfo { buflisted = 1 }
-            
-            -- If this is the last buffer, show alpha after closing
-            if #bufs <= 1 and require("astrocore").is_available "alpha-nvim" then
-              -- Close current buffer first
-              require("astrocore.buffer").close(0)
-              -- Then create alpha buffer (automatically becomes current)
-              require("alpha").start(true)
+
+            -- If this is the last buffer, show placeholder buffer after closing
+            if #bufs <= 1 then
+              -- Get current buffer to close later
+              local current_buf = vim.api.nvim_get_current_buf()
+              
+              -- Create a placeholder buffer first
+              local placeholder_buf = vim.api.nvim_create_buf(false, true)
+              
+              -- Set buffer options (keep modifiable true until we set lines)
+              vim.bo[placeholder_buf].buftype = "nofile"
+              vim.bo[placeholder_buf].bufhidden = "wipe"
+              vim.bo[placeholder_buf].swapfile = false
+              vim.bo[placeholder_buf].buflisted = false
+              
+              -- Add content to the buffer (while it's still modifiable)
+              vim.api.nvim_buf_set_lines(placeholder_buf, 0, -1, false, {
+                "",
+                "",
+                "                   Empty Buffer Placeholder",
+                "",
+                "                  Press <leader>ff to find files",
+                "                  Press <leader>fr to open recent files",
+                "                  Press <leader>n to create a new file",
+                "",
+                "",
+              })
+              
+              -- Now set buffer as non-modifiable after setting content
+              vim.bo[placeholder_buf].modifiable = false
+              vim.bo[placeholder_buf].filetype = "placeholder"
+              
+              -- Set buffer name
+              vim.api.nvim_buf_set_name(placeholder_buf, "[Placeholder]")
+              
+              -- Switch to placeholder buffer first
+              vim.api.nvim_set_current_buf(placeholder_buf)
+              
+              -- Close the old buffer after switching
+              vim.api.nvim_buf_delete(current_buf, { force = true })
             else
               -- Standard buffer close for non-last buffer
               require("astrocore.buffer").close(0)
