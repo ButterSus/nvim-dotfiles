@@ -73,6 +73,7 @@ return {
   { import = "astrocommunity.editing-support.multiple-cursors-nvim" },
   { import = "astrocommunity.editing-support.undotree" },
   { import = "astrocommunity.editing-support.neogen" },
+  { import = "astrocommunity.editing-support.vim-move" },
 
   -- Recipes
   { import = "astrocommunity.recipes.astrolsp-no-insert-inlay-hints" },

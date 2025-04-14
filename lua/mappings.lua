@@ -2,12 +2,6 @@
 vim.keymap.set("v", "<Tab>", ">gv", { desc = "Indent selection" })
 vim.keymap.set("v", "<S-Tab>", "<gv", { desc = "Unindent selection" })
 
--- Line swapping
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down", silent = true })
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up", silent = true })
-vim.keymap.set("x", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down", silent = true })
-vim.keymap.set("x", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up", silent = true })
-
 -- Search selection
 vim.keymap.set("x", "//", 'y/<C-R>"<CR>N', { desc = "Search for selected text", silent = true })
 
