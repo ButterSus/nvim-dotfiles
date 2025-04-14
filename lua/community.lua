@@ -4,7 +4,11 @@
 
 ---@type LazySpec
 return {
-  "AstroNvim/astrocommunity",
+  {
+    "ButterSus/astrocommunity",
+    branch = "personal",
+    dir = "~/.config/nvim/astrocommunity/",
+  },
 
   -- Languages
   { import = "astrocommunity.pack.python" },
@@ -58,7 +62,7 @@ return {
   { import = "astrocommunity.terminal-integration.vim-tmux-navigator" },
 
   -- Completion
-  { import = "astrocommunity.completion.cmp-cmdline" },
+  { import = "astrocommunity.completion.codeium-nvim" },
 
   -- Editing support
   { import = "astrocommunity.editing-support.undotree" },

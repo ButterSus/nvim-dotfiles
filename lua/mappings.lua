@@ -21,4 +21,4 @@ vim.keymap.set("n", "+", ":resize +2<CR>", { silent = true, desc = "Increase hei
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
 
 -- Reset highlight
-vim.keymap.set({ "n", "x" }, "<Esc>", ":noh<CR>", { silent = true })
+vim.keymap.set({ "n" }, "<Esc>", ":noh<CR>", { silent = true })
