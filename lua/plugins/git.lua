@@ -95,4 +95,17 @@ return {
       { "ag", ":<C-U>Gitsigns select_hunk<CR>", mode = { "o", "x" }, desc = "Select Git Hunk" },
     },
   },
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    cmd = "Neogit",
+    keys = {
+      { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit UI" },
+    },
+    opts = {
+      kind = "floating",
+    },
+  },
 }
