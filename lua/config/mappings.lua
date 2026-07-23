@@ -6,3 +6,7 @@ local map = vim.keymap.set
 -- VS Code style Tab / Shift-Tab indenting in Visual Mode
 map("v", "<Tab>", ">gv", { desc = "Indent Selection" })
 map("v", "<S-Tab>", "<gv", { desc = "Unindent Selection" })
+
+if not vim.g.vscode then
+  map("n", "<leader>Q", "<cmd>qa<cr>", { desc = "Quit All" })
+end
