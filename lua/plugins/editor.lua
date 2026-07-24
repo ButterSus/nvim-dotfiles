@@ -1,6 +1,16 @@
 -- This file should be 100% compatible with Visual Studio Code
 -- use vim.g.vscode to exclude logic
 
+-- Flash text briefly on yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+  callback = function()
+    vim.highlight.on_yank {
+      higroup = "IncSearch",
+      timeout = 200,
+    }
+  end,
+})
+
 local has_local, local_settings = pcall(require, "local_settings")
 local extra_parsers = (has_local and local_settings.extra_parsers) or {}
 
