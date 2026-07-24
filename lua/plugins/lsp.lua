@@ -32,9 +32,9 @@ return {
           vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, opts)
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-          vim.keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, opts)
-          vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-          vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+          vim.keymap.set("n", "<leader>ls", vim.lsp.buf.signature_help, opts)
+          vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, opts)
+          vim.keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, opts)
           -- I don't think I'll ever use workspaces
           -- vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
           -- vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
