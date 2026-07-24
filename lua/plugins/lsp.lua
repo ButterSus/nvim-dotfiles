@@ -3,7 +3,14 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      "williamboman/mason.nvim",
+      {
+        "williamboman/mason.nvim",
+        cmd = "Mason",
+        keys = {
+          { "<leader>lm", "<cmd>Mason<cr>", desc = "Mason" },
+        },
+        opts = {},
+      },
       "williamboman/mason-lspconfig.nvim",
     },
     config = function()
@@ -33,6 +40,7 @@ return {
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
           vim.keymap.set("n", "<leader>ls", vim.lsp.buf.signature_help, opts)
+          vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, opts)
           vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, opts)
           vim.keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, opts)
           -- I don't think I'll ever use workspaces
@@ -46,6 +54,12 @@ return {
           end, opts)
           vim.keymap.set("n", "]d", function()
             vim.diagnostic.jump { count = 1, float = true }
+          end, opts)
+          vim.keymap.set("n", "[e", function()
+            vim.diagnostic.jump { count = -1, severity = vim.diagnostic.severity.ERROR, float = true }
+          end, opts)
+          vim.keymap.set("n", "]e", function()
+            vim.diagnostic.jump { count = 1, severity = vim.diagnostic.severity.ERROR, float = true }
           end, opts)
           vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
           vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
