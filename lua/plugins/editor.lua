@@ -52,7 +52,7 @@ return {
         require("nvim-treesitter").install(parsers)
       end
 
-      -- 3. Enable Native Neovim Highlighting & Indent
+      -- Enable native neovim highlighting & indent
       vim.api.nvim_create_autocmd("FileType", {
         callback = function()
           pcall(vim.treesitter.start)
@@ -60,7 +60,7 @@ return {
         end,
       })
 
-      -- 4. Setup Textobjects Configuration
+      -- Setup textobjects configuration
       require("nvim-treesitter-textobjects").setup {
         select = {
           lookahead = true,
@@ -69,7 +69,7 @@ return {
         },
       }
 
-      -- 5. Textobjects Keymaps
+      -- Textobjects keymaps
       vim.keymap.set({ "x", "o" }, "af", function()
         require("nvim-treesitter-textobjects.select").select_textobject("@function.outer", "textobjects")
       end, { desc = "Select Around Function" })
