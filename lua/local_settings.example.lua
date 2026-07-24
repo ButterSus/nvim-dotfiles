@@ -4,4 +4,5 @@
 
 return {
   extra_parsers = {},
+  extra_servers = {},
 }
