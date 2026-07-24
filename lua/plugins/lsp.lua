@@ -117,8 +117,48 @@ return {
     ft = "lua",
     opts = {
       library = {
-        -- Load luvit types when the `vim.uv` module is referenced
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
+    specs = {
+      {
+        "saghen/blink.cmp",
+        opts_extend = { "sources.default" },
+        opts = {
+          sources = {
+            default = { "lazydev" },
+            providers = {
+              lazydev = {
+                name = "LazyDev",
+                module = "lazydev.integrations.blink",
+                score_offset = 100,
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    "saghen/blink.cmp",
+    dependencies = {
+      "saghen/blink.lib",
+      "rafamadriz/friendly-snippets",
+    },
+    event = { "InsertEnter" },
+    build = function()
+      require("blink.cmp").build():pwait()
+    end,
+    opts_extend = { "sources.default" },
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      keymap = {
+        preset = "default",
+        ["<A-l>"] = { "select_and_accept" },
+      },
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
       },
     },
   },
