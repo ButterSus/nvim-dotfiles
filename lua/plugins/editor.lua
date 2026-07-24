@@ -101,4 +101,8 @@ return {
     cond = not vim.g.vscode,
     lazy = false,
   },
+  {
+    "tommcdo/vim-exchange",
+    lazy = false,
+  },
 }
