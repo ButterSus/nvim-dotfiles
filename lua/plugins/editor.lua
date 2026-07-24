@@ -1,12 +1,18 @@
 -- This file should be 100% compatible with Visual Studio Code
 -- use vim.g.vscode to exclude logic
 
+local has_local, local_settings = pcall(require, "local_settings")
+local extra_parsers = (has_local and local_settings.extra_parsers) or {}
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
     -- This plugin does not support lazy-loading.
     lazy = false,
     build = ":TSUpdate",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+    },
     config = function()
       require("nvim-treesitter").setup()
 
@@ -25,6 +31,10 @@ return {
           "json",
           "yaml",
         }
+      end
+
+      for _, parser in ipairs(extra_parsers) do
+        table.insert(parsers, parser)
       end
 
       -- Explicitly trigger parser installation programmatically for the main branch
