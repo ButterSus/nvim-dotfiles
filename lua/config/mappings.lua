@@ -12,4 +12,10 @@ if not vim.g.vscode then
   map("n", "<leader>L", "<cmd>Lazy<cr>", { desc = "Open Lazy Dashboard" })
 
   map("n", "<leader>Q", "<cmd>qa<cr>", { desc = "Quit All" })
+
+  -- Seamless window navigation with Ctrl+hjkl
+  vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
+  vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to lower window" })
+  vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to upper window" })
+  vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 end
