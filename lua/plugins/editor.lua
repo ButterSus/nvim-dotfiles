@@ -11,9 +11,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
-local has_local, local_settings = pcall(require, "local_settings")
-local extra_parsers = (has_local and local_settings.extra_parsers) or {}
-
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -42,6 +39,9 @@ return {
           "yaml",
         }
       end
+
+      local has_local, local_settings = pcall(require, "local_settings")
+      local extra_parsers = (has_local and local_settings.extra_parsers) or {}
 
       for _, parser in ipairs(extra_parsers) do
         table.insert(parsers, parser)
