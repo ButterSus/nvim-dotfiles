@@ -1,16 +1,6 @@
 -- This file should be 100% compatible with Visual Studio Code
 -- use vim.g.vscode to exclude logic
 
--- Flash text briefly on yank
-vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function()
-    vim.highlight.on_yank {
-      higroup = "IncSearch",
-      timeout = 200,
-    }
-  end,
-})
-
 return {
   {
     "nvim-treesitter/nvim-treesitter",
