@@ -23,3 +23,7 @@ opt.clipboard = "unnamedplus"
 -- Save undo history across Neovim sessions
 opt.undofile = true
 opt.updatetime = 250
+
+local vscode = require "vscode"
+
+vim.notify = vscode.notify
