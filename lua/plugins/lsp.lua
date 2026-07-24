@@ -41,8 +41,12 @@ return {
           -- vim.keymap.set("n", "<leader>wl", function()
           --   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
           -- end, opts)
-          vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-          vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+          vim.keymap.set("n", "[d", function()
+            vim.diagnostic.jump { count = -1, float = true }
+          end, opts)
+          vim.keymap.set("n", "]d", function()
+            vim.diagnostic.jump { count = 1, float = true }
+          end, opts)
           vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
           vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
         end,
