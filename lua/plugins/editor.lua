@@ -105,4 +105,9 @@ return {
     "tommcdo/vim-exchange",
     lazy = false,
   },
+  {
+    "kylechui/nvim-surround",
+    version = "^4.0.0",
+    keys = { "ys", "ds", "cs", { "S", mode = "x" } },
+  },
 }
