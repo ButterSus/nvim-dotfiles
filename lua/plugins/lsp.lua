@@ -58,4 +58,44 @@ return {
       end
     end,
   },
+  {
+    "stevearc/conform.nvim",
+    event = { "BufWritePre", "BufNewFile" },
+    cmd = { "ConformInfo" },
+    opts = function()
+      local has_local, local_settings = pcall(require, "local_settings")
+      local extra_formatters = (has_local and local_settings.extra_formatters) or {}
+
+      local formatters = {
+        lua = { "stylua" },
+      }
+
+      -- Merge extra_formatters from local_settings
+      for ft, fmt in pairs(extra_formatters) do
+        formatters[ft] = fmt
+      end
+
+      return {
+        formatters_by_ft = formatters,
+        format_on_save = function(bufnr)
+          if vim.bo[bufnr].filetype == "lua" then
+            return {
+              timeout_ms = 500,
+              lsp_format = "fallback",
+            }
+          end
+        end,
+      }
+    end,
+    keys = {
+      {
+        "<leader>lf",
+        function()
+          require("conform").format { async = true, lsp_format = "fallback" }
+        end,
+        mode = { "n", "x" },
+        desc = "Format Buffer",
+      },
+    },
+  },
 }
