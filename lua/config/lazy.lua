@@ -31,7 +31,7 @@ require("lazy").setup {
   install = {},
   checker = {
     enabled = false,
-    notify = true,
+    notify = false,
   },
   performance = {
     rtp = {
