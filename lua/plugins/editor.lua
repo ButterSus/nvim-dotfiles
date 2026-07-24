@@ -3,6 +3,12 @@
 
 return {
   {
+    "nvim-treesitter/nvim-treesitter",
+    -- This plugin does not support lazy-loading.
+    lazy = false,
+    build = ":TSUpdate",
+  },
+  {
     "matze/vim-move",
     cond = not vim.g.vscode,
     lazy = false,
