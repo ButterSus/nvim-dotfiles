@@ -56,7 +56,8 @@ return {
       vim.api.nvim_create_autocmd("FileType", {
         callback = function()
           pcall(vim.treesitter.start)
-          vim.bo.indentexpr = "v:lua.vim.treesitter.indentexpr()"
+          -- It has proven to be unreliable
+          -- vim.bo.indentexpr = "v:lua.vim.treesitter.indentexpr()"
         end,
       })
 
