@@ -4,4 +4,7 @@
 
 return {
   extra_parsers = {},
+
+  -- Might be either oil or vscode
+  file_explorer = "vscode",
 }
