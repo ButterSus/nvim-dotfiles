@@ -6,4 +6,7 @@ return {
   extra_parsers = {},
   extra_servers = {},
   extra_formatters = {},
+
+  -- Might be either oil, yazi or mini.files
+  file_explorer = "yazi",
 }
