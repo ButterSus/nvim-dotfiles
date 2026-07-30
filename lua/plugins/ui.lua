@@ -15,4 +15,33 @@ return {
       },
     },
   },
+
+  -- ToggleTerm
+  {
+    "akinsho/toggleterm.nvim",
+    version = "*",
+    keys = {
+      {
+        "<leader>t",
+        function()
+          local count = vim.v.count > 0 and vim.v.count or 1
+          vim.cmd(count .. "ToggleTerm")
+        end,
+        desc = "Toggle Terminal (count = instance number)",
+      },
+    },
+    opts = {
+      direction = "horizontal",
+      start_in_insert = true,
+      persist_size = true,
+      persist_mode = true,
+      on_open = function(term)
+        local map_opts = { buffer = term.bufnr, silent = true }
+        vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], map_opts)
+        vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], map_opts)
+        vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], map_opts)
+        vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], map_opts)
+      end,
+    },
+  },
 }
