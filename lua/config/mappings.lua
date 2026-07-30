@@ -8,6 +8,19 @@ map("v", "<Tab>", ">gv", { desc = "Indent Selection" })
 map("v", "<S-Tab>", "<gv", { desc = "Unindent Selection" })
 
 if not vim.g.vscode then
+  map("n", "<Tab>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
+  map("n", "<S-Tab>", "<cmd>bprevious<cr>", { desc = "Previous Buffer" })
+else
+  -- editor.action.nextEditor
+  map("n", "<Tab>", function()
+    require("vscode").action "workbench.action.nextEditor"
+  end, { desc = "Next Buffer" })
+  map("n", "<S-Tab>", function()
+    require("vscode").action "workbench.action.previousEditor"
+  end, { desc = "Previous Buffer" })
+end
+
+if not vim.g.vscode then
   -- Lazy
   map("n", "<leader>L", "<cmd>Lazy<cr>", { desc = "Open Lazy Dashboard" })
 
