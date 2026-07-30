@@ -23,3 +23,7 @@ opt.clipboard = "unnamedplus"
 -- Save undo history across Neovim sessions
 opt.undofile = true
 opt.updatetime = 250
+
+-- Disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
