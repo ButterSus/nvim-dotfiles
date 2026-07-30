@@ -24,6 +24,10 @@ opt.clipboard = "unnamedplus"
 opt.undofile = true
 opt.updatetime = 250
 
+-- Disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 local vscode = require "vscode"
 
 vim.notify = vscode.notify
