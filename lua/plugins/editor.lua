@@ -307,4 +307,10 @@ return {
     event = "VeryLazy",
     opts = {},
   },
+  {
+    "echasnovski/mini.pairs",
+    enabled = not vim.g.vscode,
+    event = "InsertEnter",
+    opts = {},
+  },
 }
