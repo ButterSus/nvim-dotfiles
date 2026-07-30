@@ -1,0 +1,128 @@
+{
+    // Sensible defaults
+    "window.zoomLevel": 1,
+    "scm.defaultViewMode": "tree",
+    "search.defaultViewMode": "tree",
+    "explorer.confirmDragAndDrop": false,
+    "editor.fontFamily": "'Iosevka Nerd Font', 'Droid Sans Mono', monospace",
+    "git.blame.editorDecoration.enabled": true,
+    // Trust more
+    "security.workspace.trust.enabled": false,
+    "json.schemaDownload.trustedDomains": {
+        "https://raw.githubusercontent.com/": true
+    },
+    // Neovim (run in separate process for performance)
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "vscode-neovim.NVIM_APPNAME": "nvim-vscode",
+    // Prevent <Alt> from focusing top menu
+    "window.menuBarVisibility": "visible",
+    // Format Lua for $HOME/.config/nvim
+    "[lua]": {
+        "editor.defaultFormatter": "JohnnyMorganz.stylua",
+        "editor.formatOnSave": true
+    },
+    "editor.lineNumbers": "relative",
+    "editor.wordWrap": "on",
+    // Allow <Ctrl-N/P> for neovim
+    "vscode-neovim.ctrlKeysForInsertMode": [
+        "a",
+        "c",
+        "d",
+        "h",
+        "j",
+        "k",
+        "l",
+        "m",
+        "o",
+        "r",
+        "t",
+        "u",
+        "w",
+        "n",
+        "p"
+    ],
+    "vscode-neovim.ctrlKeysForNormalMode": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "o",
+        "r",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z",
+        "/",
+        "]",
+        "right",
+        "left",
+        "up",
+        "down",
+        "backspace",
+        "delete",
+        "n",
+        "p"
+    ],
+    // Semantic highlighting
+    "editor.semanticHighlighting.enabled": true,
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": [
+                    "comment"
+                ],
+                "settings": {
+                    "fontStyle": "italic"
+                }
+            },
+            {
+                "scope": [
+                    "keyword",
+                    "storage.type",
+                    "storage.modifier"
+                ],
+                "settings": {
+                    "fontStyle": "italic"
+                }
+            },
+            {
+                "scope": [
+                    "keyword.operator",
+                    "keyword.control.conditional"
+                ],
+                "settings": {
+                    "fontStyle": ""
+                }
+            },
+            {
+                "scope": [
+                    "string"
+                ],
+                "settings": {
+                    "fontStyle": "italic"
+                }
+            }
+        ]
+    },
+    "editor.semanticTokenColorCustomizations": {
+        "rules": {
+            "*.readonly": {
+                "fontStyle": "bold"
+            }
+        }
+    },
+    "editor.mouseWheelZoom": true
+}
