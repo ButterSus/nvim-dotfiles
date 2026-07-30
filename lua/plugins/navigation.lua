@@ -25,4 +25,22 @@ else
   })
 end
 
+-- Buffer Actions
+vim.keymap.set("n", "<leader>bc", action "workbench.action.closeActiveEditor", { desc = "Close Buffer" })
+vim.keymap.set("n", "<leader>bC", action "workbench.action.closeActiveEditor", { desc = "Force Close Buffer" })
+vim.keymap.set("n", "<leader>ba", action "workbench.action.closeEditorsInGroup", { desc = "Close All Buffers" })
+vim.keymap.set("n", "<leader>bo", action "workbench.action.closeOtherEditors", { desc = "Close Other Buffers" })
+vim.keymap.set(
+  "n",
+  "<leader>bl",
+  action "workbench.action.closeEditorsToTheRight",
+  { desc = "Close Buffers to the Right" }
+)
+vim.keymap.set(
+  "n",
+  "<leader>bh",
+  action "workbench.action.closeEditorsToTheLeft",
+  { desc = "Close Buffers to the Left" }
+)
+
 return {}
