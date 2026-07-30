@@ -74,4 +74,78 @@ return {
       },
     },
   },
+
+  -- Mini Buf Remove
+  {
+    "echasnovski/mini.bufremove",
+    event = "VeryLazy",
+    keys = {
+      {
+        "<leader>bc",
+        function()
+          require("mini.bufremove").delete(0, false)
+        end,
+        { desc = "Close Buffer" },
+      },
+      {
+        "<leader>bC",
+        function()
+          require("mini.bufremove").delete(0, true)
+        end,
+        { desc = "Force Close Buffer" },
+      },
+      {
+        "<leader>ba",
+        function()
+          for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+            if vim.bo[buf].buflisted then
+              require("mini.bufremove").delete(buf, false)
+            end
+          end
+        end,
+        { desc = "Close All Buffers" },
+      },
+      {
+        "<leader>bo",
+        function()
+          local current = vim.api.nvim_get_current_buf()
+          for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+            if buf ~= current and vim.bo[buf].buflisted then
+              require("mini.bufremove").delete(buf, false)
+            end
+          end
+        end,
+        { desc = "Close Other Buffers" },
+      },
+      {
+        "<leader>bl",
+        function()
+          local current = vim.api.nvim_get_current_buf()
+          local bufs = vim.tbl_filter(function(buf)
+            return vim.bo[buf].buflisted
+          end, vim.api.nvim_list_bufs())
+          local current_idx = vim.fn.index(bufs, current)
+          for i = current_idx + 2, #bufs do -- +2: skip current itself, list is 1-indexed
+            require("mini.bufremove").delete(bufs[i], false)
+          end
+        end,
+        { desc = "Close Buffers to the Right" },
+      },
+      {
+        "<leader>bh",
+        function()
+          local current = vim.api.nvim_get_current_buf()
+          local bufs = vim.tbl_filter(function(buf)
+            return vim.bo[buf].buflisted
+          end, vim.api.nvim_list_bufs())
+          local current_idx = vim.fn.index(bufs, current)
+          for i = current_idx, 1, -1 do -- count down from just before current to the start
+            require("mini.bufremove").delete(bufs[i], false)
+          end
+        end,
+        { desc = "Close Buffers to the Left" },
+      },
+    },
+    opts = {},
+  },
 }
