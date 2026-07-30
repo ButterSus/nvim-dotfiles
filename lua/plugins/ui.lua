@@ -53,4 +53,11 @@ return {
       use_icons = true,
     },
   },
+
+  -- Mini Tab Line
+  {
+    "echasnovski/mini.tabline",
+    event = "VeryLazy",
+    opts = {},
+  },
 }
