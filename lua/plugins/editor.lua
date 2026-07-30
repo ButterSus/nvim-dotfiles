@@ -302,4 +302,9 @@ return {
     version = "^4.0.0",
     keys = { "ys", "ds", "cs", { "S", mode = "x" } },
   },
+  {
+    "andymass/vim-matchup",
+    event = "VeryLazy",
+    opts = {},
+  },
 }

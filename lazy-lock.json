@@ -4,5 +4,6 @@
   "nvim-treesitter": { "branch": "main", "commit": "bd41519ff7901da11ba6e1c8f419f17f2d94305a" },
   "nvim-treesitter-textobjects": { "branch": "main", "commit": "898ee307df58f854d11cd7edd06472574d48014e" },
   "vim-exchange": { "branch": "master", "commit": "d6c1e9790bcb8df27c483a37167459bbebe0112e" },
+  "vim-matchup": { "branch": "master", "commit": "055881643e1b37038a572c883de7b1969716db77" },
   "vim-move": { "branch": "master", "commit": "267fd1cff61fc643dfb5f9b188c434906f5214aa" }
 }
