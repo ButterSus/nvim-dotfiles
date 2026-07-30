@@ -124,5 +124,8 @@
             }
         }
     },
-    "editor.mouseWheelZoom": true
+    "editor.mouseWheelZoom": true,
+    // Disable tips
+    "workbench.tips.enabled": false,
+    "chat.tips.enabled": false
 }

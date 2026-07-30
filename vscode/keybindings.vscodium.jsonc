@@ -194,5 +194,4 @@
         "command": "workbench.action.navigateForward",
         "when": "!editorTextFocus || !neovim.mode"
     }
-    // Uncommited
 ]

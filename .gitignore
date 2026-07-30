@@ -1,1 +1,2 @@
 lua/local_settings.lua
+vscode/*.local.jsonc
