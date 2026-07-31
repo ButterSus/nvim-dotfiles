@@ -20,6 +20,18 @@ else
   end, { desc = "Previous Buffer" })
 end
 
+if vim.g.vscode then
+  map("n", "|", function()
+    require("vscode").action "workbench.action.splitEditor"
+  end, { desc = "Split Vertically" })
+  map("n", "\\", function()
+    require("vscode").action "workbench.action.splitEditorDown"
+  end, { desc = "Split Horizontally" })
+else
+  map("n", "|", "<cmd>vsplit<cr>", { desc = "Split Vertically" })
+  map("n", "\\", "<cmd>split<cr>", { desc = "Split Horizontally" })
+end
+
 if not vim.g.vscode then
   -- Lazy
   map("n", "<leader>L", "<cmd>Lazy<cr>", { desc = "Open Lazy Dashboard" })
