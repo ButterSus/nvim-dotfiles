@@ -148,4 +148,124 @@ return {
     },
     opts = {},
   },
+
+  -- Snacks Picker
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {
+      picker = {
+        enabled = true,
+        layout = {
+          layout = {
+            box = "horizontal",
+            width = 0.8,
+            height = 0.9,
+            border = "none",
+            {
+              box = "vertical",
+              { win = "input", height = 1, border = "none" },
+              { win = "list", border = "none" },
+            },
+            { win = "preview", border = "none" },
+          },
+        },
+      },
+    },
+    keys = {
+      {
+        "<leader>ff",
+        function()
+          Snacks.picker.files()
+        end,
+        desc = "Find Files",
+      },
+      {
+        "<leader>fw",
+        function()
+          Snacks.picker.grep()
+        end,
+        desc = "Live Grep",
+      },
+      {
+        "<leader>fb",
+        function()
+          Snacks.picker.buffers()
+        end,
+        desc = "Find Buffers",
+      },
+      {
+        "<leader>fo",
+        function()
+          Snacks.picker.recent()
+        end,
+        desc = "Recent Files",
+      },
+      {
+        "<leader>fh",
+        function()
+          Snacks.picker.help()
+        end,
+        desc = "Help Tags",
+      },
+      {
+        "<leader>fs",
+        function()
+          Snacks.picker.lsp_symbols()
+        end,
+        desc = "LSP Symbols",
+      },
+      {
+        "<leader>fd",
+        function()
+          Snacks.picker.diagnostics()
+        end,
+        desc = "Diagnostics",
+      },
+      {
+        "<leader>fc",
+        function()
+          Snacks.picker.grep_word()
+        end,
+        mode = { "n", "x" },
+        desc = "Grep Word/Selection",
+      },
+      {
+        "<leader>fm",
+        function()
+          Snacks.picker.man()
+        end,
+        desc = "Man Pages",
+      },
+      {
+        "<leader>fk",
+        function()
+          Snacks.picker.keymaps()
+        end,
+        desc = "Keymaps",
+      },
+      {
+        "<leader>fp",
+        function()
+          Snacks.picker.lazy()
+        end,
+        desc = "Search Plugin Spec",
+      },
+      {
+        "<leader>fq",
+        function()
+          Snacks.picker.qflist()
+        end,
+        desc = "Quickfix List",
+      },
+      {
+        "<leader>f<CR>",
+        function()
+          Snacks.picker.resume()
+        end,
+        desc = "Resume Last Picker",
+      },
+    },
+  },
 }
