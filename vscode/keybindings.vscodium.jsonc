@@ -198,6 +198,7 @@
     {
         "key": "ctrl+u",
         "command": "runCommands",
+        "when": "editorTextFocus",
         "args": {
             "commands": [
                 {
@@ -219,6 +220,7 @@
     {
         "key": "ctrl+d",
         "command": "runCommands",
+        "when": "editorTextFocus",
         "args": {
             "commands": [
                 {
