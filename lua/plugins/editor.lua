@@ -304,12 +304,13 @@ return {
   },
   {
     "andymass/vim-matchup",
+    cond = not vim.g.vscode,
     event = "VeryLazy",
     opts = {},
   },
   {
     "echasnovski/mini.pairs",
-    enabled = not vim.g.vscode,
+    cond = not vim.g.vscode,
     event = "InsertEnter",
     opts = {},
   },
