@@ -32,6 +32,14 @@ else
   map("n", "\\", "<cmd>split<cr>", { desc = "Split Horizontally" })
 end
 
+if vim.g.vscode then
+  map("n", "<leader>c", function()
+    require("vscode").action "workbench.action.closeEditorsAndGroup"
+  end, { desc = "Close Window" })
+else
+  map("n", "<leader>c", "<cmd>close<cr>", { desc = "Close Window" })
+end
+
 if not vim.g.vscode then
   -- Lazy
   map("n", "<leader>L", "<cmd>Lazy<cr>", { desc = "Open Lazy Dashboard" })
