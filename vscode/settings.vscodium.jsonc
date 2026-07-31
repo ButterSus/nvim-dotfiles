@@ -127,5 +127,7 @@
     "editor.mouseWheelZoom": true,
     // Disable tips
     "workbench.tips.enabled": false,
-    "chat.tips.enabled": false
+    "chat.tips.enabled": false,
+    // Disable "Your application running on port XXXX is available" popup in terminal
+    "remote.autoForwardPorts": false
 }
