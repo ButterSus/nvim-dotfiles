@@ -43,4 +43,20 @@ vim.keymap.set(
   { desc = "Close Buffers to the Left" }
 )
 
+-- Picker Actions
+vim.keymap.set("n", "<leader>ff", action "workbench.action.quickOpen", { desc = "Find Files" })
+vim.keymap.set("n", "<leader>fw", action "workbench.action.findInFiles", { desc = "Live Grep" })
+vim.keymap.set("n", "<leader>fb", action "workbench.action.showAllEditors", { desc = "Find Buffers" })
+vim.keymap.set("n", "<leader>fo", action "workbench.action.openRecent", { desc = "Recent Folders" })
+vim.keymap.set("n", "<leader>fs", action "workbench.action.gotoSymbol", { desc = "LSP Symbols" })
+vim.keymap.set("n", "<leader>fd", action "workbench.actions.view.problems", { desc = "Diagnostics" })
+vim.keymap.set("n", "<leader>fq", action "workbench.panel.markers.view.focus", { desc = "Quickfix/Problems" })
+vim.keymap.set("x", "<leader>fc", action "workbench.action.findInFiles", { desc = "Grep Word/Selection" })
+vim.keymap.set("n", "<leader>fc", function()
+  local word = vim.fn.expand "<cword>"
+  vscode.action("workbench.action.findInFiles", { args = { query = word } })
+end, { desc = "Grep Word/Selection" })
+vim.keymap.set("n", "<leader>fk", action "workbench.action.openGlobalKeybindings", { desc = "Keymaps" })
+vim.keymap.set("n", "<leader>fp", action "workbench.view.extensions", { desc = "Extensions" })
+
 return {}
