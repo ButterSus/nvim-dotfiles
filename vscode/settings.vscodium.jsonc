@@ -132,5 +132,8 @@
     "chat.tips.enabled": false,
     // Disable "Your application running on port XXXX is available" popup in terminal
     "remote.autoForwardPorts": false,
-    "workbench.colorTheme": "Gruvbox Dark Hard"
+    // Disable sticky scroll for terminal, because it sticks to the top, hiding essential lines
+    "terminal.integrated.stickyScroll.enabled": false,
+    "workbench.colorTheme": "Gruvbox Dark Hard",
+    "diffEditor.ignoreTrimWhitespace": false
 }
