@@ -8,8 +8,10 @@
     "git.blame.editorDecoration.enabled": true,
     // Trust more
     "security.workspace.trust.enabled": false,
+    "json.schemaDownload.enable": true,
     "json.schemaDownload.trustedDomains": {
-        "https://raw.githubusercontent.com/": true
+        "https://raw.githubusercontent.com/": true,
+        "https://github.com/": true
     },
     // Neovim (run in separate process for performance)
     "extensions.experimental.affinity": {
