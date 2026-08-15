@@ -49,6 +49,7 @@ vim.keymap.set("n", "<leader>fw", action "workbench.action.findInFiles", { desc 
 vim.keymap.set("n", "<leader>fb", action "workbench.action.showAllEditors", { desc = "Find Buffers" })
 vim.keymap.set("n", "<leader>fo", action "workbench.action.openRecent", { desc = "Recent Folders" })
 vim.keymap.set("n", "<leader>fs", action "workbench.action.gotoSymbol", { desc = "LSP Symbols" })
+vim.keymap.set("n", "<leader>fS", action "workbench.action.showAllSymbols", { desc = "Workspace Symbols" })
 vim.keymap.set("n", "<leader>fd", action "workbench.actions.view.problems", { desc = "Diagnostics" })
 vim.keymap.set("n", "<leader>fq", action "workbench.panel.markers.view.focus", { desc = "Quickfix/Problems" })
 vim.keymap.set("x", "<leader>fc", action "workbench.action.findInFiles", { desc = "Grep Word/Selection" })
