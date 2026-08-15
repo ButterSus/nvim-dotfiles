@@ -217,6 +217,13 @@ return {
         desc = "LSP Symbols",
       },
       {
+        "<leader>fS",
+        function()
+          Snacks.picker.lsp_workspace_symbols()
+        end,
+        desc = "Workspace Symbols",
+      },
+      {
         "<leader>fd",
         function()
           Snacks.picker.diagnostics()
