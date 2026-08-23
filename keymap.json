@@ -1,0 +1,372 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  // Window navigation
+  {
+    "context": "!(vim_mode == insert)",
+    "bindings": {
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown",
+    },
+  },
+  // Buffer navigation
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "tab": "pane::ActivateNextItem",
+      "shift-tab": "pane::ActivatePreviousItem",
+    },
+  },
+  // Move lines
+  {
+    "context": "vim_mode == normal || vim_mode == visual",
+    "bindings": {
+      "alt-k": "editor::MoveLineUp",
+      "alt-j": "editor::MoveLineDown",
+    },
+  },
+  // Indenting in visual mode
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "tab": "editor::Indent",
+      "shift-tab": "editor::Outdent",
+    },
+  },
+  // Surround in visual mode
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "shift-s": "vim::PushAddSurrounds",
+    },
+  },
+  // Vim-exchange
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "shift-x": "vim::Exchange",
+    },
+  },
+  // Cool way to jump to word, not sure if I'll use it
+  {
+    "context": "vim_mode == normal || vim_mode == visual",
+    "bindings": {
+      "g w": "vim::HelixJumpToWord",
+    },
+  },
+  // Neotree-like mappings
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "a": "project_panel::NewFile",
+      "A": "project_panel::NewDirectory",
+      "r": "project_panel::Rename",
+      "d": "project_panel::Trash",
+      "x": "project_panel::Cut",
+      "y": "project_panel::Copy",
+      "p": "project_panel::Paste",
+    },
+  },
+  // Split
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "|": "pane::SplitRight",
+      "\\": "pane::SplitDown",
+    },
+  },
+  // Git editing
+  {
+    "context": "vim_mode == normal || vim_mode == visual",
+    "bindings": {
+      "]g": "editor::GoToHunk",
+      "[g": "editor::GoToPreviousHunk",
+
+      "space g s": "git::ToggleStaged",
+      "space g r": "git::Restore",
+      "space g b": "editor::ToggleGitBlameInline",
+      "space g d": "git::Diff",
+
+      "space g shift-s": "git::StageFile",
+      "space g shift-r": "git::RestoreFile",
+
+      "space g t": "editor::ToggleGitBlameInline",
+    },
+  },
+  // LSP related mappings
+  {
+    "context": "vim_mode == insert",
+    "bindings": {
+      "ctrl-k": "editor::ShowSignatureHelp",
+      "tab": "editor::Tab",
+    },
+  },
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "g d": "editor::GoToDefinition",
+      "g shift-d": "editor::GoToDeclaration",
+      "g i": "editor::GoToImplementation",
+      "g y": "editor::GoToTypeDefinition",
+      "g r": "editor::FindAllReferences",
+      "shift-k": "editor::Hover",
+
+      "space l s": "editor::ShowSignatureHelp",
+      "space l r": "editor::Rename",
+      "space l a": "editor::ToggleCodeActions",
+      "space l m": "lsp_tool::ToggleMenu",
+      "space l f": "editor::Format",
+
+      "] d": "editor::GoToDiagnostic",
+      "[ d": "editor::GoToPreviousDiagnostic",
+
+      "space q": "diagnostics::Deploy",
+    },
+  },
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "space l a": "editor::ToggleCodeActions",
+      "space l f": "editor::Format",
+    },
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "alt-l": "editor::ConfirmCompletion",
+    },
+  },
+  {
+    "context": "Editor && (extension == cpp || extension == c || extension == h || extension == hpp)",
+    "bindings": {
+      "alt-o": "editor::SwitchSourceHeader",
+    },
+  },
+  // Opening panels
+  {
+    "context": "!((Editor && (mode != full || vim_mode == insert)) || Terminal || search)",
+    "bindings": {
+      "space g g": "git_panel::Toggle",
+      "space g l": "git_graph::Open",
+      "space g c": "git::Commit",
+      "space g a": "git::Amend",
+      "space e": "project_panel::ToggleFocus",
+      "space o": "pane::RevealInProjectPanel",
+      "space s": "outline_panel::ToggleFocus",
+    },
+  },
+  // Navigation
+  {
+    "context": "!((Editor && (mode != full || vim_mode == insert)) || Terminal || search)",
+    "bindings": {
+      // Alias for <leader>ff, because recent files don't exist
+      "space f o": "file_finder::Toggle",
+      // Alias for <leader>fw, because it finds word under cursor by default
+      "space f c": "pane::DeploySearch",
+
+      "space f f": "file_finder::Toggle",
+      "space f w": "pane::DeploySearch",
+      "space f b": "tab_switcher::ToggleAll",
+      "space f s": "outline::Toggle",
+      "space f shift-s": "project_symbols::Toggle",
+      "space f d": "diagnostics::Deploy",
+      "space f k": "zed::OpenKeymapFile",
+      "space f t": "theme_selector::Toggle",
+    },
+  },
+  // Buffers
+  {
+    "context": "!((Editor && (mode != full || vim_mode == insert)) || Terminal || search || Dock)",
+    "bindings": {
+      // Alias for <leader>bc
+      "space c": "pane::CloseActiveItem",
+      // Alias for <leader>ba
+      "space C": "pane::CloseAllItems",
+
+      "space b c": "pane::CloseActiveItem",
+      "space b a": "pane::CloseAllItems",
+      "space b o": "pane::CloseOtherItems",
+      "space b l": "pane::CloseItemsToTheRight",
+      "space b h": "pane::CloseItemsToTheLeft",
+    },
+  },
+  {
+    "context": "Dock && !Terminal && !(Editor && (mode != full || vim_mode == insert))",
+    "bindings": {
+      // Alias for <leader>bc
+      "space c": "workspace::CloseActiveDock",
+      "space b c": "workspace::CloseActiveDock",
+    },
+  },
+  // Workspace
+  {
+    "context": "!((Editor && (mode != full || vim_mode == insert)) || Terminal || search || Dock)",
+    "bindings": {
+      "space p r": "projects::OpenRecent",
+      "space p R": "projects::OpenRemote",
+      "space p f": "workspace::OpenFiles",
+      "space p F": "workspace::Open",
+      "space p a": "workspace::AddFolderToProject",
+      "space p c": "workspace::CloseProject",
+    },
+  },
+  // Task runner & Execution
+  {
+    "context": "!((Editor && (mode != full || vim_mode == insert)) || Terminal || search || Dock)",
+    "bindings": {
+      "space r s": "task::Spawn",
+      "space r r": ["task::Rerun", { "reevaluate_context": true }],
+      "space r t": "zed::OpenProjectTasks",
+    },
+  },
+  // Unbind Ctrl-k
+  {
+    "context": "Editor",
+    "unbind": {
+      "ctrl-k ctrl-]": "editor::UnfoldRecursive",
+      "ctrl-k ctrl-shift-d": [
+        "editor::SelectPrevious",
+        {
+          "replace_newest": true,
+        },
+      ],
+      "ctrl-k ctrl-2": "editor::FoldAtLevel_2",
+      "ctrl-k ctrl-6": "editor::FoldAtLevel_6",
+      "ctrl-k ctrl-3": "editor::FoldAtLevel_3",
+      "ctrl-k ctrl-/": "editor::ToggleBlockComments",
+      "ctrl-k ctrl-5": "editor::FoldAtLevel_5",
+      "ctrl-k ctrl-4": "editor::FoldAtLevel_4",
+      "ctrl-k ctrl-8": "editor::FoldAtLevel_8",
+      "ctrl-k ctrl-9": "editor::FoldAtLevel_9",
+      "ctrl-k r": "editor::RevealInFileManager",
+      "ctrl-k p": "workspace::CopyPath",
+      "ctrl-k ctrl-0": "editor::FoldAll",
+      "ctrl-k ctrl-1": "editor::FoldAtLevel_1",
+      "ctrl-k ctrl-q": "editor::Rewrap",
+      "ctrl-k ctrl-[": "editor::FoldRecursive",
+      "ctrl-k ctrl-7": "editor::FoldAtLevel_7",
+      "ctrl-k ctrl-d": [
+        "editor::SelectNext",
+        {
+          "replace_newest": true,
+        },
+      ],
+      "ctrl-k ctrl-i": "editor::Hover",
+      "ctrl-k ctrl-l": "editor::ToggleFold",
+      "ctrl-k q": "editor::Rewrap",
+      "ctrl-k ctrl-b": "editor::BlameHover",
+      "ctrl-k ctrl-j": "editor::UnfoldAll",
+      "ctrl-k ctrl-c": [
+        "editor::ToggleComments",
+        {
+          "advance_downwards": false,
+        },
+      ],
+    },
+  },
+  {
+    "context": "ImageViewer",
+    "unbind": {
+      "ctrl-k r": "editor::RevealInFileManager",
+    },
+  },
+  {
+    "context": "Editor && mode == full",
+    "unbind": {
+      "ctrl-k ctrl-z": "editor::ToggleSoftWrap",
+      "ctrl-k z": "editor::ToggleSoftWrap",
+    },
+  },
+  {
+    "context": "Workspace",
+    "unbind": {
+      "ctrl-k ctrl-up": "workspace::ActivatePaneUp",
+      "ctrl-k s": "workspace::SaveWithoutFormat",
+      "ctrl-k ctrl-t": "theme_selector::Toggle",
+      "ctrl-k ctrl-right": "workspace::ActivatePaneRight",
+      "ctrl-k shift-up": "workspace::SwapPaneUp",
+      "ctrl-k n": "encoding_selector::Toggle",
+      "ctrl-k m": "language_selector::Toggle",
+      "ctrl-k shift-down": "workspace::SwapPaneDown",
+      "ctrl-k shift-right": "workspace::SwapPaneRight",
+      "ctrl-k ctrl-shift-t": "theme::ToggleMode",
+      "ctrl-k ctrl-left": "workspace::ActivatePaneLeft",
+      "ctrl-k ctrl-s": "zed::OpenKeymap",
+      "ctrl-k shift-left": "workspace::SwapPaneLeft",
+      "ctrl-k ctrl-m": "toolchain::AddToolchain",
+      "ctrl-k ctrl-down": "workspace::ActivatePaneDown",
+      "ctrl-k ctrl-p": "workspace::ReopenLastPicker",
+    },
+  },
+  {
+    "context": "Editor && !agent_diff",
+    "unbind": {
+      "ctrl-k ctrl-r": "git::Restore",
+    },
+  },
+  {
+    "context": "GitDiff > Editor",
+    "unbind": {
+      "ctrl-k ctrl-r": "git::RestoreAndNext",
+    },
+  },
+  {
+    "context": "Editor && extension == md",
+    "unbind": {
+      "ctrl-k v": "markdown::OpenPreviewToTheSide",
+    },
+  },
+  {
+    "context": "Pane",
+    "unbind": {
+      "ctrl-k down": "pane::SplitDown",
+      "ctrl-k ctrl-w": "workspace::CloseAllItemsAndPanes",
+      "ctrl-k e": [
+        "pane::CloseItemsToTheLeft",
+        {
+          "close_pinned": false,
+        },
+      ],
+      "ctrl-k w": [
+        "pane::CloseAllItems",
+        {
+          "close_pinned": false,
+        },
+      ],
+      "ctrl-k right": "pane::SplitRight",
+      "ctrl-k shift-enter": "pane::TogglePinTab",
+      "ctrl-k u": [
+        "pane::CloseCleanItems",
+        {
+          "close_pinned": false,
+        },
+      ],
+      "ctrl-k t": [
+        "pane::CloseItemsToTheRight",
+        {
+          "close_pinned": false,
+        },
+      ],
+      "ctrl-k left": "pane::SplitLeft",
+      "ctrl-k up": "pane::SplitUp",
+    },
+  },
+  {
+    "context": "Editor && extension == svg",
+    "unbind": {
+      "ctrl-k v": "svg::OpenPreviewToTheSide",
+    },
+  },
+  {
+    "unbind": {
+      "ctrl-k ctrl-o": "workspace::Open",
+    },
+  },
+]

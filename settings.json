@@ -1,0 +1,93 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  // Telemetry
+  "cli_default_open_behavior": "existing_window",
+  "collaboration_panel": {
+    "button": false
+  },
+  "git": {
+    "blame": {
+      "show_avatar": false,
+    },
+    "inline_blame": {
+      "show_commit_summary": true,
+    },
+  },
+  "auto_update": false,
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+    "anthropic_retention": false,
+  },
+  "title_bar": {
+    // Cannot fully disable accounts, at least hide it
+    "show_sign_in": false,
+  },
+
+  // Most important design choices
+  "vim_mode": true,
+  "relative_line_numbers": "enabled",
+  "disable_ai": false,
+
+  // Looks
+  "theme": {
+    "mode": "dark",
+    "light": "Gruvbox Light",
+    "dark": "Gruvbox Dark Hard",
+  },
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Catppuccin Latte",
+    "dark": "Catppuccin Mocha",
+  },
+  "soft_wrap": "editor_width",
+  "wrap_guides": [80],
+  "colorize_brackets": true,
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+  "semantic_tokens": "combined",
+  "experimental.theme_overrides": {
+    "syntax": {
+      "comment": { "font_style": "italic" },
+      "keyword": { "font_style": "italic" },
+      "string": { "font_style": "italic" },
+    },
+  },
+
+  // Conveniences
+  "mouse_wheel_zoom": true,
+  "session": { "trust_all_worktrees": true },
+  "git_panel": {
+    "group_by": "staging",
+    "tree_view": true,
+  },
+
+  // Editing
+  "allow_rewrap": "in_comments",
+  "auto_indent": "syntax_aware",
+  "auto_indent_on_paste": true,
+  "use_auto_surround": true,
+
+  // LSP
+  "auto_signature_help": false,
+  "diagnostics": {
+    "inline": {
+      "enabled": true,
+    },
+  },
+  "languages": {
+    "SystemVerilog": {
+      "language_servers": ["..."],
+    },
+  },
+
+  // Connections
+  "proxy": "",
+}
