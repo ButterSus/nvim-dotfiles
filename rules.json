@@ -1,0 +1,24 @@
+{
+  "": [
+    {
+      "type": "dict",
+      "policy": "AcceptSet",
+      "allowed_keys": [
+        "bindings",
+        "unbind"
+      ]
+    }
+  ],
+  "unbind": [
+    {
+      "type": "dict",
+      "policy": "AcceptAll"
+    }
+  ],
+  "bindings": [
+    {
+      "type": "dict",
+      "policy": "AcceptAll"
+    }
+  ]
+}
