@@ -134,7 +134,7 @@
     "context": "vim_mode == visual",
     "bindings": {
       "space l a": "editor::ToggleCodeActions",
-      "space l f": "editor::Format",
+      "space l f": "editor::FormatSelections",
     },
   },
   {
