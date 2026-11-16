@@ -369,4 +369,10 @@
       "ctrl-k ctrl-o": "workspace::Open",
     },
   },
+  {
+    "context": "Terminal",
+    "unbind": {
+      "ctrl-v": "terminal::Paste"
+    }
+  },
 ]
